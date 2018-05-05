@@ -102,15 +102,7 @@ AugurNodeController.prototype.onRequestConfig = function (event, data) {
 }
 
 AugurNodeController.prototype.onSaveNetworkConfig = function (event, data) {
-    const curNetworkConfig = this.config.networks[data.network];
-    this.networkConfig = data.networkConfig;
     this.config.networks[data.network] = this.networkConfig;
-    if (data.network === this.config.network) {
-        if (curNetworkConfig.http !== data.networkConfig.http ||
-            curNetworkConfig.ws !== data.networkConfig.ws) {
-                this.restart();
-            }
-    }
     fs.writeFileSync(this.configPath, JSON.stringify(this.config));
     event.sender.send('saveNetworkConfigResponse', data);
 }
@@ -118,8 +110,6 @@ AugurNodeController.prototype.onSaveNetworkConfig = function (event, data) {
 AugurNodeController.prototype.onSwitchNetwork = function (event, data) {
     this.config.network = data.network;
     this.config.networks[data.network] = data.networkConfig;
-    this.networkConfig = this.config.networks[this.config.network];
-    this.restart();
     fs.writeFileSync(this.configPath, JSON.stringify(this.config));
     event.sender.send('onSwitchNetworkResponse', data);
 }
