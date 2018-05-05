@@ -7,6 +7,7 @@ function Renderer() {
     this.isSynced = false;
     this.config = {};
     this.selectedNetwork = "";
+    this.defaultNetwork = "";
     ipcRenderer.send('requestConfig');
     setInterval(() => {
         ipcRenderer.send('requestLatestSyncedBlock');
@@ -67,11 +68,9 @@ Renderer.prototype.getNetworkConfigFormData = function () {
 }
 
 Renderer.prototype.onSwitchNetworkResponse = function (event, data) {
-    this.showNotice("Switched network to " + this.config.networks[data.network].name, "success");
-    this.config.network = data.network;
+    this.showNotice(`Switched network to ${this.config.networks[data.network].name}. Restart to use this network.`, "success");
+    this.defaultNetwork = data.network;
     const syncProgress = document.getElementById("sync_progress_amount");
-    syncProgress.classList = [];
-    syncProgress.innerHTML = "LOADING";
     this.renderNetworkConfigForm(data.network, this.config.networks[data.network]);
 }
 
@@ -86,13 +85,14 @@ Renderer.prototype.renderNetworkConfigForm = function (selectedNetwork, networkC
     document.getElementById("network_name").value = this.config.networks[selectedNetwork].name;
     document.getElementById("network_http_endpoint").value = networkConfig.http;
     document.getElementById("network_ws_endpoint").value = networkConfig.ws;
-    document.getElementById("switch_network_button").disabled = this.config.network === selectedNetwork;
+    document.getElementById("switch_network_button").disabled = this.defaultNetwork === selectedNetwork;
     document.getElementById("current_network").innerHTML = "("+this.config.networks[this.config.network].name+")";
 }
 
 Renderer.prototype.onReceiveConfig = function (event, data) {
     this.config = data;
     this.selectedNetwork = this.config.network;
+    this.defaultNetwork = this.config.network;
     this.renderNetworkOptions();
     this.renderNetworkConfigForm(this.config.network, this.config.networks[this.config.network]);
 }
