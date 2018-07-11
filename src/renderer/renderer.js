@@ -86,6 +86,7 @@ Renderer.prototype.backToNetworkConfig = function (event) {
     document.getElementById("go_to_open_app_screen_button").value = "Update Connection";
     document.getElementById("cancel_switch_button").style.display = "block";
     document.getElementById("augur_ui_button").disabled = true
+    document.getElementById("reset_button_container").style.display = "none";
 }
 
 Renderer.prototype.onServerConnected = function (event) {
