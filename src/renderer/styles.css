@@ -365,7 +365,7 @@ input {
 
 .reset {
   align-items: center;
-  display: flex;
+  display: none;
   flex-grow: 1;
   justify-content: flex-end;
   margin-top: 5px;

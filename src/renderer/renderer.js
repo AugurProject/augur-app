@@ -96,6 +96,7 @@ Renderer.prototype.onServerConnected = function (event) {
   document.getElementById("network_config_screen").style.display = "none";
   document.getElementById("open_app_screen").style.display = "block";
   document.getElementById("augur_ui_button").disabled = !this.isSynced;
+  document.getElementById("reset_button_container").style.display = "flex";
 }
 
 Renderer.prototype.connectToServer = function (event) {
