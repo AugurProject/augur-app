@@ -73,11 +73,11 @@ function AugurNodeServer() {
 }
 
 AugurNodeServer.prototype.onServerError = function (event, data) {
-  log.error(data.message)
+  if (data.message.length > 0) log.error(data.message)
 }
 
 AugurNodeServer.prototype.onConsoleLog = function (event, data) {
-  log.info(data.message)
+  if (data.message.length > 0) log.info(data.message)
 }
 
 // We wait until the window is provided so that if it fails we can send an error message to the renderer
