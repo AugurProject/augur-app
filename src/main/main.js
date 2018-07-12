@@ -37,8 +37,8 @@ function createWindow () {
 
   // This will initiate an AN instance with the current default network config. We give the window some time to load first in case we need to show errors
   setTimeout(function() {
-    augurUIServer.setWindow(mainWindow);
     augurNodeController.setWindow(mainWindow);
+    augurUIServer.setWindow(mainWindow);
   }, 2000);
 
 

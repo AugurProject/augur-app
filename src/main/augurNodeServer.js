@@ -59,6 +59,8 @@ function AugurNodeServer() {
   this.networkConfig = this.config.networks[this.config.network]
   this.augur = new Augur()
   this.augurNodeController = new AugurNodeController(this.augur, this.networkConfig, this.appDataPath)
+  this.augurNodeController.addLogger(log);
+  log.info("Initializing...")
   this.window = null
   ipcMain.on('requestLatestSyncedBlock', this.requestLatestSyncedBlock.bind(this))
   ipcMain.on('requestConfig', this.onRequestConfig.bind(this))
@@ -66,7 +68,16 @@ function AugurNodeServer() {
   ipcMain.on('start', this.onStartNetwork.bind(this))
   ipcMain.on('onSaveConfiguration', this.onSaveConfiguration.bind(this))
   ipcMain.on('reset', this.onReset.bind(this))
+  ipcMain.on('consoleLog', this.onConsoleLog.bind(this));
+  ipcMain.on('error', this.onServerError.bind(this));
+}
 
+AugurNodeServer.prototype.onServerError = function (event, data) {
+  log.error(data.message)
+}
+
+AugurNodeServer.prototype.onConsoleLog = function (event, data) {
+  log.info(data.message)
 }
 
 // We wait until the window is provided so that if it fails we can send an error message to the renderer
@@ -91,9 +102,6 @@ AugurNodeServer.prototype.startServer = function () {
     }.bind(this))
   } catch (err) {
     log.error(err)
-    this.window.webContents.send('error', {
-      error: message
-    })
   }
 }
 
@@ -103,9 +111,6 @@ AugurNodeServer.prototype.restart = function () {
     setTimeout(this.startServer.bind(this), 2000)
   } catch (err) {
     log.error(err)
-    this.window.webContents.send('error', {
-      error: err
-    })
   }
 }
 
@@ -144,9 +149,6 @@ AugurNodeServer.prototype.onSaveNetworkConfig = function (event, data) {
     event.sender.send('saveNetworkConfigResponse', data)
   } catch (err) {
     log.error(err)
-    this.window.webContents.send('error', {
-      error: err
-    })
   }
 }
 
@@ -160,9 +162,6 @@ AugurNodeServer.prototype.onReset = function (event) {
     }
   } catch (err) {
     log.error(err)
-    this.window.webContents.send('error', {
-      error: err
-    })
   }
   event.sender.send('resetResponse', {})
 }
@@ -184,9 +183,6 @@ AugurNodeServer.prototype.onStartNetwork = function (event, data) {
 
   } catch (err) {
     log.error(err)
-    this.window.webContents.send('error', {
-      error: err
-    })
   }
 }
 
@@ -208,9 +204,6 @@ AugurNodeServer.prototype.requestLatestSyncedBlock = function (event, data) {
       event.sender.send('latestSyncedBlock', syncedBlockInfo)
     }).catch((err) => {
       log.error(err)
-      this.window.webContents.send('error', {
-        error: err
-      })
     })
 }
 
@@ -221,9 +214,6 @@ AugurNodeServer.prototype.shutDownServer = function () {
     this.augurNodeController.shutdown()
   } catch (err) {
     log.error(err)
-    this.window.webContents.send('error', {
-      error: err
-    })
   }
 }
 
