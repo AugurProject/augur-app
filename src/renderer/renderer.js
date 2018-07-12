@@ -1,7 +1,5 @@
 const {ipcRenderer, remote, shell} = require('electron');
-const log = require('electron-log');
 const {app} = require('electron').remote
-
 
 function clearClassList(classList) {
   for(let i = classList.length; i > 0; i--) {
@@ -37,8 +35,6 @@ function Renderer() {
     ipcRenderer.on('latestSyncedBlock', this.onLatestSyncedBlock.bind(this));
     ipcRenderer.on('config', this.onReceiveConfig.bind(this));
     ipcRenderer.on('saveNetworkConfigResponse', this.onSaveNetworkConfigResponse.bind(this));
-    ipcRenderer.on('consoleLog', this.onConsoleLog.bind(this));
-    ipcRenderer.on('error', this.onServerError.bind(this));
     ipcRenderer.on('ssl', this.onSsl.bind(this))
     ipcRenderer.on('onServerConnected', this.onServerConnected.bind(this))
     ipcRenderer.on('resetResponse', this.onResetResponse.bind(this));
@@ -132,7 +128,7 @@ Renderer.prototype.renderOpenNetworkPage = function (data) {
 }
 
 Renderer.prototype.onSsl = function (event, value) {
-    log.info("SSL is enabled: " + value);
+    this.info("SSL is enabled: " + value);
     this.isSsl = value
     document.getElementById("generateCert").value = this.isSsl ? "disable ssl for ledger" : "enable ssl for ledger";
 }
@@ -180,19 +176,19 @@ Renderer.prototype.switchNetworkConfigForm = function () {
     this.renderNetworkConfigForm(this.selectedNetworkForm, networkConfig);
     this.clearNotice()
   } catch(err) {
-    log.error(err)
+    this.error(err)
   }
 }
 Renderer.prototype.renderNetworkConfigForm = function (network, networkConfig) {
   try {
     const networkName = this.config.networks[network].name;
-    log.info('network name ' + networkName)
+    this.info('network name ' + networkName)
     document.getElementById("network_name").value = networkName
     document.getElementById("network_http_endpoint").value = networkConfig.http;
     document.getElementById("network_ws_endpoint").value = networkConfig.ws;
     this.checkConnectValidity();
   } catch (err) {
-    log.error(err)
+    this.error(err)
   }
 }
 
@@ -208,7 +204,7 @@ Renderer.prototype.onReceiveConfig = function (event, data) {
     this.renderNetworkOptions();
     this.renderNetworkConfigForm(this.selectedNetworkForm, this.config.networks[this.selectedNetworkForm]);
   } catch (err) {
-    log.error(err)
+    this.error(err)
   }
 }
 
@@ -260,17 +256,24 @@ Renderer.prototype.onLatestSyncedBlock = function (event, data) {
     document.getElementById("augur_ui_button").disabled = !this.isSynced;
 }
 
-Renderer.prototype.onConsoleLog = function (event, message) {
-    log.info(message);
-}
-
 Renderer.prototype.clearNotice = function () {
   this.showNotice("", "success")
 }
 
+Renderer.prototype.error = function (msg) {
+  ipcRenderer.send('error', {
+    message: msg
+  })
+}
+
+Renderer.prototype.info = function (msg) {
+  ipcRenderer.send('consoleLog', {
+    message: msg
+  })
+}
 
 Renderer.prototype.showNotice = function (message, className) {
-    log.info(message);
+    this.info(message);
     const notice = document.getElementById("notice");
     clearClassList(notice.classList);
     notice.innerHTML = "";
