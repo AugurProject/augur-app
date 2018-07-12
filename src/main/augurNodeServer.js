@@ -131,6 +131,7 @@ AugurNodeServer.prototype.onBulkSyncFinished = function () {
 }
 
 AugurNodeServer.prototype.onRequestConfig = function (event, data) {
+  log.info("Sending config ...")
   event.sender.send('config', this.config)
 }
 

@@ -261,13 +261,13 @@ Renderer.prototype.clearNotice = function () {
 }
 
 Renderer.prototype.error = function (msg) {
-  this.window.webContents.send('error', {
+  ipcRenderer.send('error', {
     message: msg
   })
 }
 
 Renderer.prototype.info = function (msg) {
-  this.window.webContents.send('consoleLog', {
+  ipcRenderer.send('consoleLog', {
     message: msg
   })
 }
