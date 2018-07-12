@@ -60,7 +60,6 @@ function AugurNodeServer() {
   this.augur = new Augur()
   this.augurNodeController = new AugurNodeController(this.augur, this.networkConfig, this.appDataPath)
   this.augurNodeController.addLogger(log);
-  log.info("Initializing...")
   this.window = null
   ipcMain.on('requestLatestSyncedBlock', this.requestLatestSyncedBlock.bind(this))
   ipcMain.on('requestConfig', this.onRequestConfig.bind(this))
@@ -131,7 +130,6 @@ AugurNodeServer.prototype.onBulkSyncFinished = function () {
 }
 
 AugurNodeServer.prototype.onRequestConfig = function (event, data) {
-  log.info("Sending config ...")
   event.sender.send('config', this.config)
 }
 
