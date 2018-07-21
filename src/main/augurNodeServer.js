@@ -41,6 +41,12 @@ const defaultConfig = {
       'name': 'Local',
       'ws': 'ws://localhost:8546'
     },
+    'megamainnet': {
+      'http': 'http://megageth.com/ethereum-http',
+      'name': 'Mainnet - Megageth',
+      'ws': 'ws://megageth.com/ethereum-ws',
+      'id': '1'
+    },
     'mainnet': {
       'http': 'https://mainnet.infura.io/augur',
       'name': 'Mainnet',
