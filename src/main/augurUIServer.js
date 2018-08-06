@@ -8,12 +8,16 @@ const { ipcMain } = require('electron')
 const appData = require('app-data-folder');
 const KeyGen = require('selfsigned.js');
 const helmet = require('helmet');
+var httpProxy = require('http-proxy');
 
 function AugurUIServer() {
   this.server = null;
   this.uiPort = 8080;
   this.window = null;
   this.appDataPath = appData("augur");
+  const options = {ws: true}
+  this.proxy = httpProxy.createProxyServer(options);
+
   ipcMain.on('toggleSslAndRestart', this.onToggleSslAndRestart.bind(this))
   ipcMain.on('startUiServer', this.onStartUiServer.bind(this))
 }
@@ -21,6 +25,7 @@ function AugurUIServer() {
 AugurUIServer.prototype.onStartUiServer = function (event, data) {
   this.uiPort = data.uiPort || this.uiPort;
   this.sslPort = data.sslPort || this.sslPort
+  this.networkConfig = data.networkConfig
   if (this.server === null) this.startServer(event)
 }
 
@@ -82,6 +87,17 @@ AugurUIServer.prototype.startServer = function (event) {
       });
       return server.listen.apply(server, arguments);
     }
+    const self = this
+    this.app.use('/augur-node', (req, socket) => {
+      this.proxy.ws(req, socket, {target: 'ws://localhost:9001'})
+    })
+    this.app.use('/ethereum-http', (req, res) => {
+      this.proxy.web(req, res, {target: self.networkConfig.http})
+    })
+    this.app.use('/ethereum-ws', (req, socket) => {
+      this.proxy.ws(req, socket, {target: self.networkConfig.ws})
+    })
+
     this.server = this.app.listen(isSslEnabled ? sslPort : port);
   } catch (err) {
     log.error(err);

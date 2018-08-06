@@ -162,9 +162,9 @@ Renderer.prototype.onServerConnected = function (event) {
 }
 
 Renderer.prototype.connectToServer = function (event) {
-  ipcRenderer.send('startUiServer', { uiPort: this.uiPort, sslPort: this.sslPort });
-  this.showNotice("Connecting...", "success")
   const data = this.getNetworkConfigFormData();
+  ipcRenderer.send('startUiServer', { uiPort: this.uiPort, sslPort: this.sslPort, networkConfig: data.networkConfig });
+  this.showNotice("Connecting...", "success")
   this.isSynced = false;
   this.connectedServer = data;
 
@@ -219,10 +219,15 @@ Renderer.prototype.onWindowError = function (errorMsg, url, lineNumber) {
 Renderer.prototype.openAugurUI = function () {
     const protocol = this.isSsl ? 'https' : 'http'
     const port = this.isSsl ? this.sslPort : this.uiPort
-    const wssProtocol = 'ws://127.0.0.1:9001'
-    const networkConfig = this.connectedServer.networkConfig;
-    const queryString = `augur_node=${encodeURIComponent(wssProtocol)}&ethereum_node_http=${encodeURIComponent(networkConfig.http)}&ethereum_node_ws=${encodeURIComponent(networkConfig.ws)}`;
-    shell.openExternal(`${protocol}://127.0.0.1:${port}/#/categories?${queryString}`);
+
+    const httpBase = `${protocol}://127.0.0.1:${port}`
+    const wsBase = `ws://127.0.0.1:${port}`
+
+    const augurNode = `${wsBase}/augur-node`
+    const ethereumHttp = `${httpBase}/ethereum-http`
+    const ethereumWs = `${wsBase}/ethereum-ws`
+    const queryString = `augur_node=${encodeURIComponent(augurNode)}&ethereum_node_http=${encodeURIComponent(ethereumHttp)}&ethereum_node_ws=${encodeURIComponent(ethereumWs)}`;
+    shell.openExternal(`${httpBase}/#/categories?${queryString}`);
 }
 
 Renderer.prototype.saveNetworkConfig = function (event) {
