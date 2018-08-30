@@ -8,11 +8,34 @@ Augur App is a lightweight Electron app that bundles the [Augur UI](https://gith
 
 Download the executable of the [latest release](https://github.com/AugurProject/augur-app/releases) for your respective operating system:
 
-**MacOS** : ```mac-augur-1.0.x.dmg```
+Platform | Executable
+-------- | ----------
+**MacOS** | ```mac-Augur-1.5.x.dmg```
+**Windows** | ```win-Augur-1.5.x.exe```
+**Linux** | ```linux-Augur-1.5.x.AppImage``` ```linux-Augur-1.5.x.deb```
 
-**Windows** : ```win-augur-1.0.x.exe```
+### Augur debian repository
 
-**Linux** : ```linux-augur-1.0.x.deb```
+You may also use `apt` to keep up to date with the latest Augur executable.
+Debian 9 ("stretch"), Ubuntu 16.04 ("Xenial Xerus"), and Ubuntu 18.04 ("Bionic Beaver") are supported.
+
+Please download the [augur key](https://repo.augur.net/repo_augur_net.key) and add it to the apt keyring:
+```
+sudo apt-key add repo_augur_net.key
+```
+
+Add the the following to the file `/etc/apt/sources.list.d/augur.list`:
+```
+deb https://repo.augur.net/ augur stable
+```
+
+You may now run the following commands to install augur:
+```
+sudo apt update
+sudo apt install augur
+```
+
+
 
 ## Running
 
