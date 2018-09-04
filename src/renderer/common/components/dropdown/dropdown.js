@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import Styles from "./dropdown.styles.less";
+import { css } from 'glamor';
+import spring, { toString } from 'css-spring'
+import styled, { keyframes } from 'styled-components'
+
 
 // pass in how options will be rendered in array of html, network dropdown will change default menu label, need a line break option
 class Dropdown extends Component {
@@ -56,6 +60,20 @@ class Dropdown extends Component {
   render() {
     const { options, big } = this.props;
     
+    // const springLeft = css.keyframes('springLeft', spring(
+    //   { maxHeight: '0px' }, { maxHeight: '530px' }, { preset: 'gentle', damping: '.8' }
+    // ));
+    const springLeft = toString(spring(
+      { height: '0px' }, { height: '508px' }, { preset: 'wobbly' }
+    ))
+
+    console.log(springLeft)
+    const styleProp = {
+      animation: `${keyframes`${springLeft}`} 1000ms ease 1`,
+      border: '2px',
+    }
+    console.log(styleProp)
+
     return (
       <div
         className={Styles.Dropdown}
@@ -66,8 +84,8 @@ class Dropdown extends Component {
         <div className={Styles.Dropdown__label} onClick={this.toggleList}>
           {this.props.button}
         </div>
-
-        <div 
+ {this.state.showList ? 
+     <div 
           className={classNames(Styles.Dropdown__menu, {
              [Styles['Dropdown__menuBig']]: big,
              [Styles['Dropdown__menu-visible']]: this.state.showList && !big,
@@ -76,9 +94,12 @@ class Dropdown extends Component {
           ref={dropdownItems => {
             this.refDropdownItems = dropdownItems;
           }}
+          style={styleProp}
         >
           {this.props.children}
         </div>
+        : null}
+       
       </div>
     );
   }
