@@ -5,8 +5,8 @@
   "description": "Augur Desktop Application",
   "main": "./dist/main/main.js",
   "scripts": {
-    "dev": "electron-webpack dev",
-    "compile": "electron-webpack",
+    "dev": "NODE_ENV=production electron-webpack dev",
+    "compile": "NODE_ENV=production electron-webpack",
     "publish": "npm run compile && electron-builder  --publish always",
     "postinstall": "electron-builder install-app-deps",
     "make": "npm run compile && electron-builder --publish always",
@@ -36,7 +36,7 @@
   "dependencies": {
     "app-data-folder": "1.0.0",
     "augur-core": "1.1.0",
-    "augur-node": "5.7.0",
+    "augur-node": "5.7.1",
     "augur-ui": "5.7.0",
     "augur.js": "5.5.0",
     "debounce": "1.1.0",
