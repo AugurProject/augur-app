@@ -71,7 +71,7 @@ autoUpdater.autoDownload = false
 
 module.exports = (notifyUpdateNotAvailable = false) => {
   if(isDev) return Promise.resolve()
-  if(process.platform == "linux" && !process.env.APPIMAGE) return Promise.resolve()
+  if(process.platform == 'linux' && !process.env.APPIMAGE) return Promise.resolve()
 
   const p = new Promise((resolve) => {
     autoUpdater
@@ -85,12 +85,7 @@ module.exports = (notifyUpdateNotAvailable = false) => {
   if (notifyUpdateNotAvailable) autoUpdater
     .once('update-not-available', notifyNoUpdate)
 
+  autoUpdater.checkForUpdates()
 
-  return autoUpdater.checkForUpdates().catch((e) => {
-    log.error('There was an error updating app. This is expected if using deb package.')
-
-    return Promise.resolve(p);
-  });
-
-  return p;
+  return p
 }
