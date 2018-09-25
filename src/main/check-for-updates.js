@@ -6,11 +6,17 @@ const log = require('electron-log')
 const isDev = require('electron-is-dev')
 
 const downloadAndInstall = () => {
-  var progressBar = new ProgressBar({
+  const config = {
     text: 'Downloading update',
-    detail: '0%',
-    indeterminate: false,
-  })
+    indeterminate: true,
+  }
+
+  const isNotWindows = (process.platform !== 'win32')
+  if (isNotWindows) {
+    config.detail = '0%'
+    config.indeterminate = true
+  }
+  const progressBar = new ProgressBar(config)
 
   autoUpdater
     .on('download-progress', ({ percent }) => {
