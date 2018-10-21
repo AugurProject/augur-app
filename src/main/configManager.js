@@ -74,11 +74,8 @@ function ConfigManager() {
     fs.writeFileSync(this.configPath, JSON.stringify(this.config, null, 4))
   } else {
     this.config = JSON.parse(fs.readFileSync(this.configPath))
-
-    if (!isEqual(this.config, defaultConfig)) {
-      this.config = merge(defaultConfig, this.config)
-      fs.writeFileSync(this.configPath, JSON.stringify(this.config, null, 4))
-    }
+    this.config = merge(this.config, defaultConfig)
+    fs.writeFileSync(this.configPath, JSON.stringify(this.config, null, 4))
   }
 
   ipcMain.on(REQUEST_CONFIG, this.onRequestConfig.bind(this))
