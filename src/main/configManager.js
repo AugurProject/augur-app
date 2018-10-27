@@ -21,9 +21,9 @@ const defaultConfig = {
     },
     rinkeby: {
       'userCreated': false,
-      'http': 'https://eth-rinkeby.alchemyapi.io/jsonrpc/TrTLNDeeF144z0t3FOoRKKLEIBZADUv3',
+      'http': 'https://rinkeby.augur.net/ethereum-http',
       'name': 'Rinkeby',
-      'ws': '',
+      'ws': 'wss://rinkeby.augur.net/ethereum-ws',
       'id': '4',
     },
     ropsten: {
@@ -35,9 +35,9 @@ const defaultConfig = {
     },
     kovan: {
       'userCreated': false,
-      'http': 'https://eth-kovan.alchemyapi.io/jsonrpc/Kd37_uEmJGwU6pYq6jrXaJXXi8u9IoOM',
+      'http': 'https://kovan.augur.net/ethereum-http',
       'name': 'Kovan',
-      'ws': '',
+      'ws': 'wss://kovan.augur.net/ethereum-ws',
       'id': '42'
     },
     local: {
