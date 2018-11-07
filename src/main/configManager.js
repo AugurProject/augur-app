@@ -74,6 +74,12 @@ function ConfigManager() {
     fs.writeFileSync(this.configPath, JSON.stringify(this.config, null, 4))
   } else {
     this.config = JSON.parse(fs.readFileSync(this.configPath))
+    if (this.config.hasOwnProperty('sslEnabled')) {
+      delete defaultConfig.sslEnabled
+    }
+    if (this.config.hasOwnProperty('uiPort')) {
+      delete defaultConfig.uiPort
+    }
     this.config = merge(this.config, defaultConfig)
     fs.writeFileSync(this.configPath, JSON.stringify(this.config, null, 4))
   }
