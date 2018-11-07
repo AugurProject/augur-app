@@ -69,7 +69,7 @@ export default class ModalEditUiPort extends Component {
             <div className={Styles.ModalEditUiPort__title}>Edit UI Port</div>
           </div>
           <div className={Styles.ModalEditUiPort__subheader}>
-            Edit the UI port to run Augur on a different port (default is 8080)
+            Edit config to run Augur on a different port (default is 8080)
           </div>
           <div className={Styles.ModalEditUiPort__label}>
               UI Port
