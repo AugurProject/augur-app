@@ -37,7 +37,7 @@ export default class ModalEditUiPort extends Component {
   updateField(value) {
     if (value < 0 || value >= 65536 || isNaN(value) || !(/^\d+$/.test(value))) {
       this.setState({validations: {
-        uiPort: 'UI Port must be a whole number, greater than zero and less than 65536'
+        uiPort: 'Must be a whole number, between zero and 65536'
       }})
     } else {
       this.setState({validations: {}})
