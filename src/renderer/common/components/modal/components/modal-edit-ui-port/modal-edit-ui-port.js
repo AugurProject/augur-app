@@ -80,6 +80,7 @@ export default class ModalEditUiPort extends Component {
                      [Styles['ModalEditUiPort__inputError']]: validations.uiPort
                   })}
                   value={uiPort}
+                  placeholder={"UI Port"}
               />
               {validations.uiPort &&
                 <div className={Styles.ModalEditUiPort__errorMessage}>{validations.uiPort}</div>
