@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
+import ModalEditUiPort from "../../containers/modal-edit-ui-port";
 import ModalEditConnection from "../../containers/modal-edit-connection";
 import * as TYPES from "../../constants/modal-types";
 import Styles from "./modal-view.styles.less";
@@ -48,6 +49,9 @@ export default class ModalView extends Component {
         <div className={Styles.ModalView__content}>
           {modal.type === TYPES.MODAL_EDIT_CONNECTION && (
             <ModalEditConnection closeModal={this.closeModal} {...modal} />
+          )}
+          {modal.type === TYPES.MODAL_EDIT_UI_PORT && (
+            <ModalEditUiPort closeModal={this.closeModal} {...modal} />
           )}
         </div>
       </section>

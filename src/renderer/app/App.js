@@ -129,6 +129,7 @@ export class App extends Component {
       addInfoNotification,
       selected,
       downloadModalSeen,
+      updateModal,
     } = this.props
 
     const {
@@ -162,6 +163,7 @@ export class App extends Component {
                 sslEnabled={sslEnabled}
                 updateConfig={updateConfig}
                 addInfoNotification={addInfoNotification}
+                updateModal={updateModal}
               />
             </div>
             <NetworkDropdownContainer
@@ -216,4 +218,5 @@ App.propTypes = {
   addInfoNotification: PropTypes.func,
   downloadModalSeen: PropTypes.bool,
   updateServerAttrib: PropTypes.func,
+  updateModal: PropTypes.func.isRequired,
 };

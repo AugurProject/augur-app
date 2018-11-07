@@ -1,0 +1,131 @@
+@import (reference) '../../../../../../assets/styles/shared';
+
+:local(.ModalEditUiPort) {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+}
+
+:local(.ModalEditUiPort__container) {
+  padding: 112px 24px;
+}
+
+:local(.ModalEditUiPort__header) {
+  font-size: 22px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  color: @color-almostblack;
+  margin-bottom: 16px;
+  display: flex;
+}
+
+:local(.ModalEditUiPort__subheader) {
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: @color-almostblack;
+  margin-bottom: 32px;
+}
+
+:local(.ModalEditUiPort__label) {
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: @color-almostblack;
+  margin-bottom: 9px;
+}
+
+:local(.ModalEditUiPort__input) {
+  border-radius: 2px;
+  background-color: @color-white;
+  padding: 8px 12px;
+  border: solid 1px #DBDAE1;
+  width: 93%;
+  font-size: 14px;
+  color: @color-almostblack;
+}
+
+:local(.ModalEditUiPort__input::placeholder) { 
+  color: @color-lightgray;
+  opacity: 1; /* Firefox */
+}
+
+:local(.ModalEditUiPort__input:focus) {
+  border: solid 1px #402366;
+  outline: none;
+}
+
+:local(.ModalEditUiPort__inputError) {
+  background: url(../../../../../../assets/images/error.svg) no-repeat scroll 7px 7px;
+  background-color: white;
+  background-position: 98%;
+}
+
+:local(.ModalEditUiPort__inputContainer) {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+:local(.ModalEditUiPort__errorMessage) {
+  font-size: 12px;
+  color: @color-almostblack;
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  right: 0;
+}
+
+:local(.ModalEditUiPort__buttonContainer) {
+  margin-top: 48px;
+  display: flex;
+}
+
+:local(.ModalEditUiPort__cancel) {
+  .button--transparent();
+
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 24px;
+  height: 14px;
+}
+
+:local(.ModalEditUiPort__save) {
+  .button--purple();
+  
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 16px;
+  border-radius: 32px;
+  padding: 8px 24px;
+  text-transform: none;
+  max-height: 32px;
+  min-height: unset;
+  min-width: unset;
+}
+
+:local(.ModalEditUiPort__save:focus) {
+  outline: none;
+}
+
+:local(.ModalEditUiPort__save:disabled),
+:local(.ModalEditUiPort__save:disabled:hover) {
+  background-color: @color-lightergray;
+  color: white;
+  cursor: default;
+}
+
+:local(.ModalEditUiPort__title) {
+  display: flex;
+  flex-grow: 1;
+}

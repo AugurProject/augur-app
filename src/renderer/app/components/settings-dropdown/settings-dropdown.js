@@ -12,6 +12,7 @@ export class SettingsDropdown extends Component {
     super(props);
 
     this.toggleLedger = this.toggleLedger.bind(this);
+    this.showModalEditUiPort = this.showModalEditUiPort.bind(this);
   }
 
   toggleLedger() {
@@ -28,9 +29,14 @@ export class SettingsDropdown extends Component {
     resetDatabase()
   }
 
+  showModalEditUiPort() {
+    this.props.updateModal();
+  }
+
   render() {
   	const options = [
   	  { onClick: this.toggleLedger, label: [<div key="0">{this.props.sslEnabled ? "Disable SSL for Ledger" : "Enable SSL for Ledger"}</div>] },
+      { onClick: this.showModalEditUiPort, label: [<div key="0">Edit UI Port</div>] },
   	  { onClick: this.reset, label: [<div key="0">Reset Database</div>] },
   	];
 
@@ -57,4 +63,5 @@ SettingsDropdown.propTypes = {
   sslEnabled: PropTypes.bool,
   updateConfig: PropTypes.func,
   addInfoNotification: PropTypes.func,
+  updateModal: PropTypes.func.isRequired,
 };

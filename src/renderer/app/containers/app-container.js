@@ -3,6 +3,8 @@ import { App } from "../App";
 import { updateConfig } from "../actions/configuration"
 import { addInfoNotification } from "../actions/notifications"
 import { updateServerAttrib } from "../actions/serverStatus"
+import { updateModal } from "../../common/components/modal/actions/update-modal";
+import { MODAL_EDIT_UI_PORT } from "../../common/components/modal/constants/modal-types";
 
 const mapStateToProps = state => {
 
@@ -21,6 +23,7 @@ const mapDispatchToProps = dispatch => ({
   updateConfig: sslEnabled => dispatch(updateConfig(sslEnabled)),
   addInfoNotification: message => dispatch(addInfoNotification(message)),
   updateServerAttrib: obj => dispatch(updateServerAttrib(obj)),
+  updateModal: data => dispatch(updateModal({ type: MODAL_EDIT_UI_PORT, ...data })),
 });
 
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
