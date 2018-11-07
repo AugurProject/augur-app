@@ -25,32 +25,19 @@ export default class ModalEditUiPort extends Component {
 
     this.closeModal = this.closeModal.bind(this)
     this.updateField = this.updateField.bind(this)
-    this.saveConnection = this.saveConnection.bind(this)
+    this.save = this.save.bind(this)
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.initialConnection !== this.props.initialConnection) {
-      const connection = {
-        name: this.props.initialConnection ? this.props.initialConnection.name : '',
-        http: this.props.initialConnection ? this.props.initialConnection.http : '',
-        name: this.props.initialConnection ? this.props.initialConnection.ws : '',
-        userCreated: true,
-        selected: this.props.initialConnection ? this.props.initialConnection.selected : false,
-      }
-      this.setState({connection: connection})
-    }
-  }
-
-  saveConnection(e) {
+  save(e) {
     this.props.updateConfig({uiPort: this.state.uiPort})
     this.closeModal(e)
     e.stopPropagation()
   }
 
   updateField(value) {
-    if (value < 0 || isNaN(value) || !(/^\d+$/.test(value))) {
+    if (value < 0 || value >= 65536 || isNaN(value) || !(/^\d+$/.test(value))) {
       this.setState({validations: {
-        uiPort: 'UI Port must be a whole, positive number'
+        uiPort: 'UI Port must be a whole number, greater than zero and less than 65536'
       }})
     } else {
       this.setState({validations: {}})
@@ -103,7 +90,7 @@ export default class ModalEditUiPort extends Component {
           </div>          
           <div className={Styles.ModalEditUiPort__buttonContainer}>
               <div className={Styles.ModalEditUiPort__cancel} onClick={this.closeModal}>Cancel</div>
-              <button className={Styles.ModalEditUiPort__save} onClick={this.saveConnection} disabled={!enableButton}>Save</button>
+              <button className={Styles.ModalEditUiPort__save} onClick={this.save} disabled={!enableButton}>Save</button>
           </div>
         </div>
       </section>
