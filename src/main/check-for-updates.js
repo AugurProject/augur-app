@@ -83,7 +83,7 @@ module.exports = (notifyUpdateNotAvailable = false) => {
   return autoUpdater.checkForUpdates().catch((e) => {
     log.error('There was an error updating app. This is expected if using deb package.')
 
-    return Promise.resolve(p);
+    return Promise.resolve();
   });
 
   return p;
