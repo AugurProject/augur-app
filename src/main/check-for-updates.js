@@ -85,6 +85,4 @@ module.exports = (notifyUpdateNotAvailable = false) => {
 
     return Promise.resolve();
   });
-
-  return p;
 }
