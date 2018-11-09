@@ -32,14 +32,14 @@ cd augur-app
 # Install dependencies
 npm install
 # Run the app. NOTE: This will have to install native dependencies which may take a long time depending on your environment.
-npm start
+npm run dev
 ```
 Once the application is running, wait for the Sync progress to reach 100%, then the "Open Augur UI" button will light up and you can click on it to open the Augur UI. Note that the Augur App must remain open while using the UI, or it will stop functioning.
 
 If the instructions above don't work try:
 ```
 yarn
-yarn start
+yarn run dev
 ```
 
 ### To build the binary
