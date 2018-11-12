@@ -123,16 +123,29 @@ export class NetworkDropdown extends Component {
 		            </div>
 	  			)
 	  		} else {
-		  		options.push(
-		  			<div
-		              key={key}
-		              className={classNames(DropdownStyles.Dropdown__menuItem, Styles.NetworkDropdown__menuItem)}
-		              onClick={this.selectNetwork.bind(this, key)}
-		            >
-		              {this.renderCircle(isSelected)}
-		              <div className={Styles.NetworkDropdown__name}>{connections[key].name}</div>
-		            </div>
-		  		)
+	  			if (key === 'mainnet') {
+	  				options.unshift(
+	  					<div
+			              key={key}
+			              className={classNames(DropdownStyles.Dropdown__menuItem, Styles.NetworkDropdown__menuItem)}
+			              onClick={this.selectNetwork.bind(this, key)}
+			            >
+			              {this.renderCircle(isSelected)}
+			              <div className={Styles.NetworkDropdown__name}>{connections[key].name}</div>
+			            </div>
+	  				);
+	  			} else {
+	  				options.push(
+			  			<div
+			              key={key}
+			              className={classNames(DropdownStyles.Dropdown__menuItem, Styles.NetworkDropdown__menuItem)}
+			              onClick={this.selectNetwork.bind(this, key)}
+			            >
+			              {this.renderCircle(isSelected)}
+			              <div className={Styles.NetworkDropdown__name}>{connections[key].name}</div>
+			            </div>
+			  		)
+	  			}	
 		  	}
 	  	}
 
