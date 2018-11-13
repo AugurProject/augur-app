@@ -16,7 +16,7 @@ import classNames from "classnames";
 import ModalDownloadGeth from "../common/components/modal/components/modal-download-geth/modal-download-geth";
 import { GEN_INFO } from '../../utils/constants'
 
-const localLightNodeName = 'Local (Light Node)' // need to use key
+const localLightNodeName = 'Local Light Node (experimental)' // need to use key
 
 export class App extends Component {
    constructor(props) {

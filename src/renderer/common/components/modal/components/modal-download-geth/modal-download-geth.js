@@ -34,7 +34,7 @@ export default class ModalDownloadGeth extends Component {
             Approve Geth Light Node Use?
           </div>
           <div className={Styles.ModalDownloadGeth__subheader}>
-            Connecting to Local (Light Node) requires you to use Geth Light Node. For your convenience, we have provided a version.
+            Connecting to Local Light Node requires you to use Geth Light Node. For your convenience, we have provided a version.
           </div>
           <div className={Styles.ModalDownloadGeth__buttonContainer}>
               <div className={Styles.ModalDownloadGeth__cancel} onClick={this.closeModal}>Cancel</div>

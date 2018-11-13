@@ -7,7 +7,7 @@
 }
 
 :local(.NetworkDropdown__label) {
-  width: 154px;
+  max-width: 204px;
   height: 12px;
   border-radius: 15px;
   background-color: #2d2543;
@@ -30,7 +30,8 @@
 
 :local(.NetworkDropdown__labelText) {
   text-overflow: ellipsis;
-  width: 115px;
+  min-width: 115px;
+  max-width: 415px;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -48,6 +49,7 @@
   justify-content: flex-end;
 	width: 1rem;
   height: 1rem;
+  margin-left: 1rem;
 }
 
 :local(.NetworkDropdown__menuItem) {
