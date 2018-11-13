@@ -7,6 +7,26 @@ import ChevronFlip from "../../../common/components/chevron-flip/chevron-flip";
 import DropdownStyles from "../../../common/components/dropdown/dropdown.styles.less";
 import Styles from './network-dropdown.styles.less'
 
+class NetworkDropdownItems extends Component {
+	static propTypes = {
+	    selectNetwork: PropTypes.func.isRequired, 
+	    renderCircle: PropTypes.func.isRequired, 
+	    isSelected: PropTypes.bool,
+	    networkName: PropTypes.string.isRequired,
+	};
+	render() {
+		return (
+			<div
+              className={classNames(DropdownStyles.Dropdown__menuItem, Styles.NetworkDropdown__menuItem)}
+              onClick={this.props.selectNetwork}
+            >
+              {this.props.renderCircle(this.props.isSelected)}
+              <div className={Styles.NetworkDropdown__name}>{this.props.networkName}</div>
+            </div>
+		)
+	}
+}
+
 export class NetworkDropdown extends Component {
 	static propTypes = {
 	    connections: PropTypes.object.isRequired,
@@ -48,6 +68,7 @@ export class NetworkDropdown extends Component {
 			stopServer,
 			isConnectedPressed,
 		} = this.props
+		console.log(networkId)
 
 	    if (selectedKey !== networkId) {
 	      updateSelectedConnection(networkId)
@@ -101,6 +122,7 @@ export class NetworkDropdown extends Component {
 
 	  	let options = []
 	  	let userCreatedOptions = []
+	  	let end = [];
 
 	  	for (let key in connections) {
 	  		const isSelected = (key === selectedKey)
@@ -123,17 +145,50 @@ export class NetworkDropdown extends Component {
 		            </div>
 	  			)
 	  		} else {
-		  		options.push(
-		  			<div
-		              key={key}
-		              className={classNames(DropdownStyles.Dropdown__menuItem, Styles.NetworkDropdown__menuItem)}
-		              onClick={this.selectNetwork.bind(this, key)}
-		            >
-		              {this.renderCircle(isSelected)}
-		              <div className={Styles.NetworkDropdown__name}>{connections[key].name}</div>
-		            </div>
-		  		)
+	  			if (key === 'mainnet') {
+	  				options.unshift(
+	  					<NetworkDropdownItems
+	  						key={key}
+	  						selectNetwork={() => {
+					        	this.selectNetwork(key);
+					        }}
+	  						renderCircle={this.renderCircle}
+	  						isSelected={isSelected}
+	  						networkName={connections[key].name}
+	  					/>
+	  				);
+	  			} else if (key === 'local' || key === 'localLightNode') { 
+	  				end.push(key)
+	  			} else {
+	  				options.push(
+	  					<NetworkDropdownItems
+	  						key={key}
+	  						selectNetwork={() => {
+					        	this.selectNetwork(key);
+					        }}
+	  						renderCircle={this.renderCircle}
+	  						isSelected={isSelected}
+	  						networkName={connections[key].name}
+	  					/>
+	  				);
+	  			}	
 		  	}
+	  	}
+
+		for (let i = 0; i < end.length; i++) {
+	  		const key = end[i]
+	  		const isSelected = (key === selectedKey)
+	  		options.push(
+	  			<NetworkDropdownItems
+					key={key}
+					selectNetwork={() => {
+		        		this.selectNetwork(key);
+		        	}}
+					renderCircle={this.renderCircle}
+					isSelected={isSelected}
+					networkName={connections[key].name}
+				/>
+	  		)
 	  	}
 
 	  	return (

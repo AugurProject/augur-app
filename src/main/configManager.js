@@ -49,7 +49,7 @@ const defaultConfig = {
     localLightNode: {
       'userCreated': false,
       'http': 'http://127.0.0.1:8545',
-      'name': 'Local (Light Node)',
+      'name': 'Local Light Node (experimental)',
       'ws': 'ws://127.0.0.1:8546'
     },
     thunder: {
