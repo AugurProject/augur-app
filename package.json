@@ -38,7 +38,7 @@
     "augur-core": "1.1.0",
     "augur-node": "6.0.3",
     "augur-ui": "5.10.5",
-    "augur.js": "5.10.3",
+    "augur.js": "6.0.0",
     "debounce": "1.1.0",
     "electron-is-dev": "^0.3.0",
     "electron-log": "^2.2.16",
