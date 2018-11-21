@@ -71,9 +71,11 @@ function GethNodeController() {
 
 GethNodeController.prototype.setWindow = function (window) {
   this.window = window
-  window.once('closed', () => {
-    this.window = null
-  })
+  if (window != null) {
+    window.once('closed', () => {
+      this.window = null
+    })
+  }
 }
 
 GethNodeController.prototype.onStartGethServer = function (event) {
