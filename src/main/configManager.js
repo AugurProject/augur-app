@@ -11,14 +11,6 @@ const defaultConfig = {
   'sslPort': '8443',
   'sslEnabled': false,
   'networks': {
-    mainnet: {
-      'userCreated': false,
-      'selected': true,
-      'http': 'https://gethnode.com/http',
-      'name': 'Mainnet (default)',
-      'ws': 'wss://gethnode.com/ws',
-      'id': '1'
-    },
     rinkeby: {
       'userCreated': false,
       'http': 'https://rinkeby.augur.net/ethereum-http',
