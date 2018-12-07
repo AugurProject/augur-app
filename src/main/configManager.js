@@ -11,6 +11,13 @@ const defaultConfig = {
   'sslPort': '8443',
   'sslEnabled': false,
   'networks': {
+    localLightNode: {
+      'userCreated': false,
+      'http': 'http://127.0.0.1:8545',
+      'name': 'Local Light Node (experimental)',
+      selected: true,
+      'ws': 'ws://127.0.0.1:8546'
+    },
     rinkeby: {
       'userCreated': false,
       'http': 'https://rinkeby.augur.net/ethereum-http',
@@ -37,20 +44,6 @@ const defaultConfig = {
       'http': 'http://127.0.0.1:8545',
       'name': 'Local',
       'ws': 'ws://127.0.0.1:8546'
-    },
-    localLightNode: {
-      'userCreated': false,
-      'http': 'http://127.0.0.1:8545',
-      'name': 'Local Light Node (experimental)',
-      'ws': 'ws://127.0.0.1:8546'
-    },
-    thunder: {
-      http: 'http://testnet-rpc.thundercore.com:8545',
-      id: '16',
-      name: 'Thunder',
-      selected: true,
-      userCreated: false,
-      ws: ''
     }
   }
 }
@@ -82,7 +75,7 @@ function ConfigManager() {
 
 ConfigManager.prototype.getSelectedNetwork = function () {
   let selected = Object.values(this.config.networks).find(n => n.selected)
-  if (!selected) selected = Object.values(this.config.networks).find(n => n.name.toLowerCase().indexOf('mainnet') > -1)
+  if (!selected) selected = Object.values(this.config.networks).find(n => n.name.toLowerCase().indexOf('localLightNode') > -1)
   return selected
 }
 
