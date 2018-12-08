@@ -51,13 +51,13 @@ yarn run dev
 
 ## Selecting An Ethereum Node
 
-You have two options for connecting to an Ethereum node: local or remote.
+Currently, there are two options for connecting to an Ethereum node:
 
 - Run a synced [Geth](https://github.com/ethereum/go-ethereum) or [Parity](https://www.parity.io) client locally. (The quickest way to do this is by starting up a Geth light node by running the following command: `geth --syncmode="light" --rpc --ws --wsorigins='127.0.0.1,http://127.0.0.1:8080,https://127.0.0.1:8080'`). Running Parity in light mode won't work, due to [a bug](https://github.com/paritytech/parity-ethereum/issues/9184).
 
     or
 
-- Use a remote node, such as [Gethnode.com](https://gethnode.com). This is the default configuration.
+- Connect to a trusted remote node.
 
 ### Parity and Warp Sync
 
