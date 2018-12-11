@@ -15,8 +15,15 @@ const defaultConfig = {
       'userCreated': false,
       'http': 'http://127.0.0.1:8545',
       'name': 'Local Light Node (experimental)',
-      selected: true,
+      'selected': true,
       'ws': 'ws://127.0.0.1:8546'
+    },
+    mainnet: {
+      'userCreated': false,
+      'http': 'https://eth-mainnet.alchemyapi.io/jsonrpc/7sE1TzCIRIQA3NJPD5wg7YRiVjhxuWAE',
+      'name': 'Mainnet',
+      'ws': '',
+      'id': '1'
     },
     rinkeby: {
       'userCreated': false,
