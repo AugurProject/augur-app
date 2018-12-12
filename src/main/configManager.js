@@ -21,7 +21,7 @@ const defaultConfig = {
     mainnet: {
       'userCreated': false,
       'http': 'https://eth-mainnet.alchemyapi.io/jsonrpc/7sE1TzCIRIQA3NJPD5wg7YRiVjhxuWAE',
-      'name': 'Mainnet',
+      'name': 'Mainnet (powered by Alchemy)',
       'ws': '',
       'id': '1'
     },
