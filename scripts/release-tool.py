@@ -251,7 +251,7 @@ def release_message_table(assets, comparison):
 
 
 def message_table_markup(message_table):
-    markdown_table = '\n\nPlatform | Checksum\n-------- | ---------\n'
+    markdown_table = '\n\nPlatform | SHA 256 Checksum\n-------- | ---------\n'
     for p in message_table.keys():
         sha = message_table[p]['sha']
         url = message_table[p]['url']

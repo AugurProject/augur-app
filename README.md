@@ -8,11 +8,34 @@ Augur App is a lightweight Electron app that bundles the [Augur UI](https://gith
 
 Download the executable of the [latest release](https://github.com/AugurProject/augur-app/releases) for your respective operating system:
 
-**MacOS** : ```mac-augur-1.0.x.dmg```
+Platform | Executable
+-------- | ----------
+**MacOS** | ```mac-Augur-1.5.x.dmg```
+**Windows** | ```win-Augur-1.5.x.exe```
+**Linux** | ```linux-Augur-1.5.x.AppImage``` ```linux-Augur-1.5.x.deb```
 
-**Windows** : ```win-augur-1.0.x.exe```
+### Augur debian repository
 
-**Linux** : ```linux-augur-1.0.x.deb```
+You may also use `apt` to keep up to date with the latest Augur executable.
+Debian 9 ("stretch"), Ubuntu 16.04 ("Xenial Xerus"), and Ubuntu 18.04 ("Bionic Beaver") are supported.
+
+Please download the [augur key](https://repo.augur.net/repo_augur_net.key) and add it to the apt keyring:
+```
+sudo apt-key add repo_augur_net.key
+```
+
+Add the the following to the file `/etc/apt/sources.list.d/augur.list`:
+```
+deb https://repo.augur.net/ augur stable
+```
+
+You may now run the following commands to install augur:
+```
+sudo apt update
+sudo apt install augur
+```
+
+
 
 ## Running
 
@@ -51,13 +74,13 @@ yarn run dev
 
 ## Selecting An Ethereum Node
 
-You have two options for connecting to an Ethereum node: local or remote.
+Currently, there are two options for connecting to an Ethereum node:
 
 - Run a synced [Geth](https://github.com/ethereum/go-ethereum) or [Parity](https://www.parity.io) client locally. (The quickest way to do this is by starting up a Geth light node by running the following command: `geth --syncmode="light" --rpc --ws --wsorigins='127.0.0.1,http://127.0.0.1:8080,https://127.0.0.1:8080'`). Running Parity in light mode won't work, due to [a bug](https://github.com/paritytech/parity-ethereum/issues/9184).
 
     or
 
-- Use a remote node, such as [Gethnode.com](https://gethnode.com). This is the default configuration.
+- Connect to a trusted remote node.
 
 ### Parity and Warp Sync
 

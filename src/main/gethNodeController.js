@@ -8,6 +8,8 @@ const appData = require('app-data-folder')
 /* global Buffer process*/
 
 const STATUS_LOOP_INTERVAL = 5000
+const MIN_PEERS = 4
+const PRE_SYNC_WAIT_TIME = 3000
 
 const SYNCING_POST_DATA = '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'
 const PEER_COUNT_POST_DATA = '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":1}'
@@ -158,7 +160,8 @@ GethNodeController.prototype.updatePeerCount = function (peerCountHex) {
   try {
     const peerCount = parseInt(peerCountHex, 16)
     this.sendMsgToWindowContents(PEER_COUNT_DATA, { peerCount })
-    if (peerCount > 0) this.makeRequest(SYNCING_REQUEST_OPTIONS, SYNCING_POST_DATA, this.updateSyncData.bind(this))
+    // Wait until we have MIN_PEERS peers to reduce the chances of a drop in peers leaving us suddenly broken and wait PRE_SYNC_WAIT_TIME ms before requesting sync status in a very naive attempt to avoid hitting the case where it has a peer but hasn't begun syncing yet
+    if (peerCount >= MIN_PEERS) setTimeout(this.makeRequest.bind(this), PRE_SYNC_WAIT_TIME, SYNCING_REQUEST_OPTIONS, SYNCING_POST_DATA, this.updateSyncData.bind(this));
   } catch (err) {
     this.sendMsgToWindowContents(ERROR_NOTIFICATION, {
       messageType: GETH_REMOTE_MSG,
