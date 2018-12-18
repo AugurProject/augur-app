@@ -12,7 +12,6 @@ const DEFAULT_DELAY_WAIT = 1*1000
 const POOL_MAX_RETRIES = 5
 const DEFAULT_MAX_RETRIES = 3
 const STATUS_LOOP_INTERVAL = 5000
-const AUGUR_NODE_RESTART_RETRIES = 1
 const AUGUR_NODE_RESTART_WAIT = 5*1000
 const MAX_BLOCKS_BEHIND_BEFORE_RESTART = 1000
 
@@ -24,7 +23,6 @@ function AugurNodeServer(selectedNetwork) {
   this.augur = new Augur()
   this.appDataPath = appData('augur')
   this.augurNodeController = new AugurNodeController(this.augur, this.selectedNetwork, this.appDataPath)
-  this.retriesRemaining = AUGUR_NODE_RESTART_RETRIES
   this.bulkSyncing = false
   ipcMain.on(START_AUGUR_NODE, this.onStartNetwork.bind(this))
   ipcMain.on(RESET_DATABASE, this.onResetDatabase.bind(this))
@@ -68,6 +66,13 @@ AugurNodeServer.prototype.startServer = function () {
     if (this.statusLoop) clearInterval(this.statusLoop)
     this.statusLoop = setInterval(this.requestLatestSyncedBlock.bind(this), STATUS_LOOP_INTERVAL)
 
+    const waiting = setInterval(() => {
+      if (this.augurNodeController && this.augurNodeController.isRunning()) {
+        this.sendMsgToWindowContents(ON_SERVER_CONNECTED, this.selectedNetwork)
+        clearInterval(waiting)
+      }
+    }, 1000)
+
     this.augurNodeController.start(function (err) {
       console.log('augur-node start:', err.message)
       if (err && err.message.includes('Could not connect')) {
@@ -78,20 +83,7 @@ AugurNodeServer.prototype.startServer = function () {
         })
       }
       if (this.isShuttingDown) return
-      if (this.retriesRemaining > 0) {
-        this.sendMsgToWindowContents(INFO_NOTIFICATION, {
-          messageType: RESTARTING_MSG,
-          message: err.message || err
-        })
-        this.retriesRemaining--
-        this.restartOnFailure()
-      } else {
-        this.disconnectServerMessage()
-        this.sendMsgToWindowContents(ERROR_NOTIFICATION, {
-          messageType: RUNNING_FAILURE,
-          message: err.message || err || 'unknown error'
-        })
-      }
+      this.restartOnFailure()
     }.bind(this))
   } catch (err) {
     log.error('start catch error:', err)
@@ -106,21 +98,13 @@ AugurNodeServer.prototype.startServer = function () {
 AugurNodeServer.prototype.onEthereumDisconnect = function () {
   if (this.isShuttingDown) return
   if (this.statusLoop) clearInterval(this.statusLoop)
-  if (this.window) {
-    this.window.webContents.send(ERROR_NOTIFICATION, {
-      messageType: RECONNECT_MSG,
-      message: 'Disconnected from Ethereum Node. Attempting to reconnect...'
-    });
-  }
+  console.warn('Disconnected from Ethereum Node. Attempting to reconnect...')
 }
 
 AugurNodeServer.prototype.onEthereumReconnect = function () {
   if (this.isShuttingDown) return
   this.statusLoop = setInterval(this.requestLatestSyncedBlock.bind(this), STATUS_LOOP_INTERVAL)
-  if (this.window) this.window.webContents.send(INFO_NOTIFICATION, {
-    messageType: RECONNECT_MSG,
-    message: 'Reconnected to Ethereum Node.'
-  })
+  console.log('Reconnected to Ethereum Node');
 }
 
 AugurNodeServer.prototype.restart = function () {
@@ -129,7 +113,7 @@ AugurNodeServer.prototype.restart = function () {
     this.shutDownServer()
     setTimeout(() => {
       this.startServer()
-    }, 2000)
+    }, 5000)
   } catch (err) {
     log.error('restart:', err)
     this.sendMsgToWindowContents(ERROR_NOTIFICATION, {
@@ -198,16 +182,7 @@ AugurNodeServer.prototype.onStartNetwork = function (event, data) {
   try {
     console.log('onStartNetwork has been called')
     this.selectedNetwork = data
-    this.retriesRemaining = AUGUR_NODE_RESTART_RETRIES
     this.restart()
-
-    const waiting = setInterval(() => {
-      if (this.augurNodeController && this.augurNodeController.isRunning()) {
-        event.sender.send(ON_SERVER_CONNECTED, data)
-        clearInterval(waiting)
-      }
-    }, 1000)
-
   } catch (err) {
     log.error('onStartNetwork', err)
     event.sender.send(ERROR_NOTIFICATION, {
