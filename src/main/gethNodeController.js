@@ -5,6 +5,7 @@ const { request } = require('http')
 const fs = require('fs')
 const path = require('path')
 const appData = require('app-data-folder')
+const log = require('electron-log')
 /* global Buffer process*/
 
 const STATUS_LOOP_INTERVAL = 5000
@@ -66,7 +67,7 @@ function GethNodeController() {
   this.gethProcess = null
   this.statusLoop = null
   this.gethExecutablePath = getGethPath()
-  console.log('gethExecutablePath', this.gethExecutablePath)
+  log.info('gethExecutablePath', this.gethExecutablePath)
   ipcMain.on(START_GETH, this.onStartGethServer.bind(this))
   ipcMain.on(STOP_GETH, this.onStopGethServer.bind(this))
 }
@@ -107,7 +108,7 @@ GethNodeController.prototype.onStartGethServer = function (event) {
     stdio: ['ignore', 'ignore', 'pipe']
   })
 
-  console.log('STARTED GETH')
+  log.info('STARTED GETH')
 
   this.gethProcess.stderr.on('data', this.log.bind(this))
   this.gethProcess.on('close', this.onGethClose.bind(this))
@@ -117,15 +118,15 @@ GethNodeController.prototype.onStartGethServer = function (event) {
 }
 
 GethNodeController.prototype.log = function (data) {
-  console.log(`GETH NODE: ${data}`)
+  log.info(`GETH NODE: ${data}`)
 }
 
 GethNodeController.prototype.onGethClose = function (code) {
-  console.log(`GETH child process exited with code ${code}`)
+  log.info(`GETH child process exited with code ${code}`)
 }
 
 GethNodeController.prototype.onStopGethServer = function (event) {
-  console.log('Stopping geth process')
+  log.info('Stopping geth process')
   if (this.gethProcess) this.gethProcess.kill('SIGINT')
   if (this.statusLoop) clearInterval(this.statusLoop)
   if (event && event.sender) event.sender.send(ON_GETH_SERVER_DISCONNECTED)
@@ -145,7 +146,7 @@ GethNodeController.prototype.makeRequest = function (options, data, callback) {
       }.bind(this))
     }.bind(this))
 
-    req.on('error', console.error)
+    req.on('error', log.error)
     req.write(data)
     req.end()
   } catch (err) {
