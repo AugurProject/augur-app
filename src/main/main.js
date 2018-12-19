@@ -16,7 +16,7 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow = null;
 
 const configManager = new ConfigManager()
 const selectedNetwork = configManager.getSelectedNetwork()
@@ -80,6 +80,7 @@ function about() {
 
 function createWindow () {
   // Create the browser window.
+  log.info('createWindow called')
   mainWindow = new BrowserWindow({minWidth: 360, width: 360, maxWidth: 360, minHeight: 700, height: 860, maxHeight: 860, icon: path.join(__dirname, '../augur.ico')})
 
   mainWindow.webContents.on('will-navigate', ev => {
@@ -106,6 +107,7 @@ function createWindow () {
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
+    log.info('mainWindow on closed')
     try {
       // Dereference the window object, usually you would store windows
       // in an array if your app supports multi windows, this is the time
@@ -115,7 +117,7 @@ function createWindow () {
       gethNodeController.onStopGethServer()
       mainWindow = null
     } catch (err) {
-      console.log(err)
+      log.error(err)
       if (mainWindow) mainWindow.webContents.send(ERROR_NOTIFICATION, {
         messageType: APP_ERROR,
         message: err.message || err
@@ -124,6 +126,7 @@ function createWindow () {
   })
 
   mainWindow.on('error', function(error) {
+    log.error('mainWindow on error')
     if (mainWindow) mainWindow.webContents.send(ERROR_NOTIFICATION, {
       messageType: APP_ERROR,
       message: error.message || error
@@ -139,16 +142,19 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  setTimeout(() => {
-    if (mainWindow) mainWindow.webContents.send('ready')
-  }, 1000)
-  console.log('app is ready ')
-  checkForUpdates()
-    .then(createWindow)
+  log.info('app is ready ')
+  if (mainWindow === null) {
+    setTimeout(() => {
+      if (mainWindow) mainWindow.webContents.send('ready')
+    }, 1000)
+    checkForUpdates()
+      .then(createWindow)
+  }
 })
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
+  log.info('app on window-all-closed');
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
@@ -157,6 +163,7 @@ app.on('window-all-closed', function () {
 })
 
 app.on('activate', function () {
+  log.info('app on activate');
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
