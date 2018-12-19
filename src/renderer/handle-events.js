@@ -1,4 +1,5 @@
 const {ipcRenderer} = require('electron')
+const log = require('electron-log')
 import { ON_GETH_SERVER_DISCONNECTED, ON_GETH_SERVER_CONNECTED, BULK_SYNC_FINISHED, BULK_SYNC_STARTED, ERROR_NOTIFICATION, INFO_NOTIFICATION, ON_UI_SERVER_CONNECTED, ON_UI_SERVER_DISCONNECTED, REQUEST_CONFIG_RESPONSE, LATEST_SYNCED_BLOCK, LATEST_SYNCED_GETH_BLOCK, ON_SERVER_CONNECTED, ON_SERVER_DISCONNECTED, PEER_COUNT_DATA, GETH_FINISHED_SYNCING, RUNNING_FAILURE } from '../utils/constants'
 import { initializeConfiguration } from './app/actions/configuration'
 import { updateGethBlockInfo, clearGethBlockInfo, updateAugurNodeBlockInfo, clearAugurNodeBlockInfo } from './app/actions/blockInfo'
@@ -13,7 +14,7 @@ export const handleEvents = () => {
   let lastSyncBlockNumber = null
 
   ipcRenderer.on('ready', () => {
-    console.log('app is ready')
+    log.info('app is ready')
   })
 
   ipcRenderer.on(REQUEST_CONFIG_RESPONSE, (event, config) => {
@@ -95,13 +96,13 @@ export const handleEvents = () => {
     setTimeout(() => {
       store.dispatch(addInfoNotification(notification))
     }, 500)
-    console.log('INFO_NOTIFICATION', notification)
+    log.info('INFO_NOTIFICATION', notification)
   })
 
   ipcRenderer.on(ERROR_NOTIFICATION, (event, notification) => {
     store.dispatch(addErrorNotification(notification))
 
-    console.log('ERROR_NOTIFICATION', notification)
+    log.info('ERROR_NOTIFICATION', notification)
   })
 
 }
