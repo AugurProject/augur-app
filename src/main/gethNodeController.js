@@ -104,13 +104,13 @@ GethNodeController.prototype.onStartGethServer = function (event) {
     '--ws',
     '--wsorigins=127.0.0.1,http://127.0.0.1:8080,https://127.0.0.1:8443',
     `--datadir=${gethPath}`
-  ], {
-    stdio: ['ignore', 'ignore', 'pipe']
-  })
+  ])
 
   log.info('STARTED GETH')
 
-  this.gethProcess.stderr.on('data', this.log.bind(this))
+  this.gethProcess.stderr.on('data', (data) => {
+    log.error(`stderr: ${data}`)
+  })
   this.gethProcess.on('close', this.onGethClose.bind(this))
 
   this.statusLoop = setInterval(this.checkStatus.bind(this), STATUS_LOOP_INTERVAL)
