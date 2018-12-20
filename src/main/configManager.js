@@ -1,4 +1,4 @@
-const { SAVE_FAILURE, ERROR_NOTIFICATION, REQUEST_CONFIG, SAVE_CONFIG, REQUEST_CONFIG_RESPONSE, SAVE_CONFIG_RESPONSE } = require('../utils/constants')
+const { SAVE_FAILURE, ERROR_NOTIFICATION, REQUEST_CONFIG, SAVE_CONFIG, REQUEST_CONFIG_RESPONSE, SAVE_CONFIG_RESPONSE, LIGHT_NODE_NAME } = require('../utils/constants')
 const fs = require('fs')
 const path = require('path')
 const { ipcMain } = require('electron')
@@ -22,7 +22,7 @@ const defaultConfig = {
     localLightNode: {
       'userCreated': false,
       'http': 'http://127.0.0.1:8545',
-      'name': 'Local Light Node (experimental)',
+      'name': LIGHT_NODE_NAME,
       'ws': 'ws://127.0.0.1:8546'
     },
     rinkeby: {

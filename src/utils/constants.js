@@ -51,3 +51,5 @@ export const GEN_INFO = 'GEN_INFO'
 export const PORT_IN_USE = 'PORT_IN_USE'
 export const SSL_GEN_ERROR = 'SSL_GEN_ERROR'
 export const SAVE_FAILURE = 'SAVE_FAILURE'
+
+export const LIGHT_NODE_NAME = 'Local Light Node (experimental)'
