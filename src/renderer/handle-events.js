@@ -34,19 +34,6 @@ export const handleEvents = () => {
   ipcRenderer.on(ON_SERVER_CONNECTED, () => {
     store.dispatch(updateServerAttrib({ AUGUR_NODE_CONNECTED: true, CONNECTING: false }))
 
-    // check to see augur node hasn't stalled out
-
-    stallChecker = setInterval(() => {
-      const newLastSyncBlockNumber = store.getState().augurNodeBlockInfo.lastSyncBlockNumber
-      if (lastSyncBlockNumber === newLastSyncBlockNumber) {
-        store.dispatch(addErrorNotification({
-          messageType: RUNNING_FAILURE,
-          message: 'Syncing may have stalled, try disconnecting and reconnecting'
-        }))
-      }
-      lastSyncBlockNumber = newLastSyncBlockNumber
-    }, 10 * 60 * 1000) // 10 minutes
-
     if (store.getState().serverStatus.DISCONNECT_REQUESTED) {
       stopAugurNode()
       store.dispatch(updateServerAttrib({ DISCONNECT_REQUESTED: false }))
