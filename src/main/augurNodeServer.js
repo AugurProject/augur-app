@@ -12,6 +12,7 @@ const DEFAULT_DELAY_WAIT = 1*1000
 const POOL_MAX_RETRIES = 5
 const DEFAULT_MAX_RETRIES = 3
 const STATUS_LOOP_INTERVAL = 5000
+const STALL_CHECK_TIMEOUT = 5 * 60 * 1000 // 5 minutes
 const AUGUR_NODE_RESTART_WAIT = 5*1000
 const MAX_BLOCKS_BEHIND_BEFORE_RESTART = 1000
 const DEFAULT_BLOCKS_PER_CHUNK = 2000
@@ -20,11 +21,14 @@ function AugurNodeServer(selectedNetwork) {
   this.isShuttingDown = false
   this.window = null
   this.statusLoop = null
+  this.stallCheckLoop = null
   this.selectedNetwork = selectedNetwork
   this.augur = new Augur()
   this.appDataPath = appData('augur')
   this.augurNodeController = new AugurNodeController(this.augur, this.selectedNetwork, this.appDataPath)
   this.bulkSyncing = false
+  this.lastSyncBlockNumber = null
+  this.previousLastSyncBlockNumber = null
   ipcMain.on(START_AUGUR_NODE, this.onStartNetwork.bind(this))
   ipcMain.on(RESET_DATABASE, this.onResetDatabase.bind(this))
   ipcMain.on(STOP_AUGUR_NODE, this.shutDownServer.bind(this))
@@ -70,6 +74,9 @@ AugurNodeServer.prototype.startServer = function () {
 
     if (this.statusLoop) clearInterval(this.statusLoop)
     this.statusLoop = setInterval(this.requestLatestSyncedBlock.bind(this), STATUS_LOOP_INTERVAL)
+
+    if (this.stallCheckLoop) clearInterval(this.stallCheckLoop)
+    this.stallCheckLoop = setInterval(this.doStallCheck.bind(this), STALL_CHECK_TIMEOUT)
 
     const waiting = setInterval(() => {
       if (this.augurNodeController && this.augurNodeController.isRunning()) {
@@ -193,6 +200,7 @@ AugurNodeServer.prototype.requestLatestSyncedBlock = function () {
   this.augurNodeController.requestLatestSyncedBlock()
     .then((syncedBlockInfo) => {
       this.sendMsgToWindowContents(LATEST_SYNCED_BLOCK, syncedBlockInfo)
+      this.lastSyncBlockNumber = syncedBlockInfo.lastSyncBlockNumber;
       const blocksBehind = syncedBlockInfo.highestBlockNumber - syncedBlockInfo.lastSyncBlockNumber
       if (!this.bulkSyncing && !this.isShuttingDown && (blocksBehind > MAX_BLOCKS_BEHIND_BEFORE_RESTART)) {
         log.info(`Behind by ${blocksBehind}. Restarting to bulk sync.`)
@@ -207,10 +215,21 @@ AugurNodeServer.prototype.requestLatestSyncedBlock = function () {
     })
 }
 
+AugurNodeServer.prototype.doStallCheck = function () {
+  log.info(`AugurNodeServer doStallCheck`)
+  if (!this.previousLastSyncBlockNumber) return;
+  if (!this.isShuttingDown && (this.lastSyncBlockNumber === this.previousLastSyncBlockNumber)) {
+    log.info(`Sync has stalled at block ${this.lastSyncBlockNumber}. Restarting`)
+    this.restart()
+  }
+  this.previousLastSyncBlockNumber = this.lastSyncBlockNumber
+}
+
 AugurNodeServer.prototype.disconnectServerMessage = function () {
   log.info('AugurNodeServer disconnectServerMessage')
   try {
     if (this.statusLoop) clearInterval(this.statusLoop)
+    if (this.stallCheckLoop) clearInterval(this.stallCheckLoop)
     if (this.augurNodeController && !this.augurNodeController.isRunning()) {
       this.sendMsgToWindowContents(ON_SERVER_DISCONNECTED)
     }
@@ -224,6 +243,7 @@ AugurNodeServer.prototype.shutDownServer = function () {
     log.info('Shutdown Augur Node Server')
     this.isShuttingDown = true
     if (this.statusLoop) clearInterval(this.statusLoop)
+    if (this.stallCheckLoop) clearInterval(this.stallCheckLoop)
     this.bulkSyncing = false
     if (this.augurNodeController == null || !this.augurNodeController.isRunning()) return
     log.info('Calling Augur Node Controller Shutdown')
