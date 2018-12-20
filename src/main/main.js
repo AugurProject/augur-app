@@ -9,6 +9,7 @@ const AugurUIServer = require('./augurUIServer')
 const AugurNodeController = require('./augurNodeServer')
 const GethNodeController = require('./gethNodeController')
 const ConfigManager = require('./configManager')
+const debounce = require('debounce')
 const {app, BrowserWindow, Menu} = electron
 /* global __dirname process*/
 
@@ -78,7 +79,7 @@ function about() {
   }
 }
 
-function createWindow () {
+const createWindow = debounce(function () {
   // Create the browser window.
   log.info('createWindow called')
   mainWindow = new BrowserWindow({minWidth: 360, width: 360, maxWidth: 360, minHeight: 700, height: 860, maxHeight: 860, icon: path.join(__dirname, '../augur.ico')})
@@ -136,7 +137,7 @@ function createWindow () {
   // build initial menus
   buildMenu()
 
-}
+}, 1000);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -147,8 +148,8 @@ app.on('ready', () => {
     setTimeout(() => {
       if (mainWindow) mainWindow.webContents.send('ready')
     }, 1000)
+    createWindow()
     checkForUpdates()
-      .then(createWindow)
   }
 })
 
