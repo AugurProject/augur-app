@@ -217,7 +217,10 @@ AugurNodeServer.prototype.requestLatestSyncedBlock = function () {
 
 AugurNodeServer.prototype.doStallCheck = function () {
   log.info(`AugurNodeServer doStallCheck`)
-  if (!this.previousLastSyncBlockNumber) return;
+  if (!this.previousLastSyncBlockNumber) {
+    this.previousLastSyncBlockNumber = this.lastSyncBlockNumber
+    return
+  }
   if (!this.isShuttingDown && (this.lastSyncBlockNumber === this.previousLastSyncBlockNumber)) {
     log.info(`Sync has stalled at block ${this.lastSyncBlockNumber}. Restarting`)
     this.restart()
