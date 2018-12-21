@@ -80,7 +80,7 @@ AugurUIServer.prototype.startServer = function (event) {
         res.redirect('https://' + req.hostname + ':' + sslPort + '/' + req.path)
       })
       this.httpListener = http.createServer(this.httpApp).listen(this.httpApp.get('port'), function() {
-        console.log('Express HTTP server listening on port ' + self.httpApp.get('port'))
+        log.info('Express HTTP server listening on port ' + self.httpApp.get('port'))
       })
     } else {
       if (this.httpListener) this.httpListener.close()
