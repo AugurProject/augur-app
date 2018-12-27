@@ -1,5 +1,5 @@
 const {ipcRenderer, shell} = require('electron')
-import { STOP_UI_SERVER, STOP_GETH, START_GETH, REQUEST_CONFIG, RESET_DATABASE, START_UI_SERVER, STOP_AUGUR_NODE, START_AUGUR_NODE, SAVE_CONFIG } from '../../../utils/constants'
+import { IMPORT_WARP_SYNC_FILE, STOP_UI_SERVER, STOP_GETH, START_GETH, REQUEST_CONFIG, RESET_DATABASE, START_UI_SERVER, STOP_AUGUR_NODE, START_AUGUR_NODE, SAVE_CONFIG } from '../../../utils/constants'
 import { updateServerAttrib } from './serverStatus'
 import store from '../../store'
 
@@ -56,4 +56,8 @@ export const openAugurUi = (networkConfig) => {
   const wssProtocol = 'ws://127.0.0.1:9001'
   const queryString = `augur_node=${encodeURIComponent(wssProtocol)}&ethereum_node_http=${encodeURIComponent(networkConfig.http)}&ethereum_node_ws=${encodeURIComponent(networkConfig.ws)}`
   shell.openExternal(`${protocol}://127.0.0.1:${port}/#/categories?${queryString}`)
+}
+
+export const importWarpSyncFile = (filename) => {
+  ipcRenderer.send(IMPORT_WARP_SYNC_FILE, filename)
 }

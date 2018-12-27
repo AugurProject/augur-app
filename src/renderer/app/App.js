@@ -88,8 +88,8 @@ export class App extends Component {
       })
     }
 
-    if (!serverStatus.AUGUR_NODE_CONNECTED && !serverStatus.GETH_CONNECTED && 
-      (serverStatus.CONNECTING || (serverStatus.GETH_CONNECTED && serverStatus.GETH_INITIATED))) 
+    if (!serverStatus.AUGUR_NODE_CONNECTED && !serverStatus.GETH_CONNECTED &&
+      (serverStatus.CONNECTING || (serverStatus.GETH_CONNECTED && serverStatus.GETH_INITIATED)))
     {
       // need to wait to disconnect, after connecting process is done
       addInfoNotification({
@@ -99,7 +99,7 @@ export class App extends Component {
       })
       updateServerAttrib({ DISCONNECT_REQUESTED: true })
     }
-  
+
     const selected = this.props.selected
     stopAugurNode()
     if (selected.name === localLightNodeName) stopGethNode()
@@ -130,6 +130,7 @@ export class App extends Component {
       selected,
       downloadModalSeen,
       updateModal,
+      updateModalWarpSync,
     } = this.props
 
     const {
@@ -164,6 +165,7 @@ export class App extends Component {
                 updateConfig={updateConfig}
                 addInfoNotification={addInfoNotification}
                 updateModal={updateModal}
+                updateModalWarpSync={updateModalWarpSync}
               />
             </div>
             <NetworkDropdownContainer
@@ -219,4 +221,5 @@ App.propTypes = {
   downloadModalSeen: PropTypes.bool,
   updateServerAttrib: PropTypes.func,
   updateModal: PropTypes.func.isRequired,
+  updateModalWarpSync: PropTypes.func.isRequired,
 };

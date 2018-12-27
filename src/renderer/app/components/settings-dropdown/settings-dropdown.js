@@ -13,6 +13,7 @@ export class SettingsDropdown extends Component {
 
     this.toggleLedger = this.toggleLedger.bind(this);
     this.showModalEditUiPort = this.showModalEditUiPort.bind(this);
+    this.showModalWarpSync = this.showModalWarpSync.bind(this);
   }
 
   toggleLedger() {
@@ -33,10 +34,15 @@ export class SettingsDropdown extends Component {
     this.props.updateModal();
   }
 
+  showModalWarpSync() {
+    this.props.updateModalWarpSync();
+  }
+
   render() {
   	const options = [
   	  { onClick: this.toggleLedger, label: [<div key="0">{this.props.sslEnabled ? "Disable SSL for Ledger" : "Enable SSL for Ledger"}</div>] },
       { onClick: this.showModalEditUiPort, label: [<div key="0">Edit UI Port</div>] },
+      { onClick: this.showModalWarpSync, label: [<div key="0">Warp Sync</div>] },
   	  { onClick: this.reset, label: [<div key="0">Reset Database</div>] },
   	];
 
@@ -64,4 +70,5 @@ SettingsDropdown.propTypes = {
   updateConfig: PropTypes.func,
   addInfoNotification: PropTypes.func,
   updateModal: PropTypes.func.isRequired,
+  updateModalWarpSync: PropTypes.func.isRequired,
 };

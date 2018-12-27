@@ -4,7 +4,7 @@ const path = require('path')
 const { ipcMain } = require('electron')
 const appData = require('app-data-folder')
 const log = require('electron-log')
-const { isEqual, merge } = require('lodash')
+const { merge } = require('lodash')
 
 const defaultConfig = {
   'uiPort': '8080',

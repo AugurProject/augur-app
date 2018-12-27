@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import ModalEditUiPort from "../../containers/modal-edit-ui-port";
+import ModalWarpSync from "../../containers/modal-warp-sync";
 import ModalEditConnection from "../../containers/modal-edit-connection";
 import * as TYPES from "../../constants/modal-types";
 import Styles from "./modal-view.styles.less";
@@ -40,7 +41,7 @@ export default class ModalView extends Component {
         }}
         className={
           classNames(
-            Styles.ModalView, 
+            Styles.ModalView,
             {[Styles.ModalView__hide]: (Object.keys(modal).length === 0)}
           )
         }
@@ -52,6 +53,9 @@ export default class ModalView extends Component {
           )}
           {modal.type === TYPES.MODAL_EDIT_UI_PORT && (
             <ModalEditUiPort closeModal={this.closeModal} {...modal} />
+          )}
+          {modal.type === TYPES.MODAL_WARP_SYNC && (
+            <ModalWarpSync closeModal={this.closeModal} {...modal} />
           )}
         </div>
       </section>

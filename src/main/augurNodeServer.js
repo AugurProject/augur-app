@@ -1,4 +1,4 @@
-const { CONNECTION_ERR, GEN_INFO, DATABASE_IN_USE, UNEXPECTED_ERR, RECONNECT_MSG, RUNNING_FAILURE, START_FAILURE, RESTARTING_MSG, INFO_NOTIFICATION, ERROR_NOTIFICATION, RESET_DATABASE, STOP_AUGUR_NODE, START_AUGUR_NODE, BULK_SYNC_STARTED, BULK_SYNC_FINISHED, ON_SERVER_DISCONNECTED, RESET_RESPONSE, ON_SERVER_CONNECTED, LATEST_SYNCED_BLOCK, LIGHT_NODE_NAME } = require('../utils/constants')
+const { IMPORT_WARP_SYNC_FILE, CONNECTION_ERR, GEN_INFO, DATABASE_IN_USE, UNEXPECTED_ERR, RECONNECT_MSG, RUNNING_FAILURE, START_FAILURE, RESTARTING_MSG, INFO_NOTIFICATION, ERROR_NOTIFICATION, RESET_DATABASE, STOP_AUGUR_NODE, START_AUGUR_NODE, BULK_SYNC_STARTED, BULK_SYNC_FINISHED, ON_SERVER_DISCONNECTED, RESET_RESPONSE, ON_SERVER_CONNECTED, LATEST_SYNCED_BLOCK, LIGHT_NODE_NAME } = require('../utils/constants')
 const Augur = require('augur.js')
 const log = require('electron-log')
 const { AugurNodeController, ControlMessageType } = require('augur-node')
@@ -32,6 +32,7 @@ function AugurNodeServer(selectedNetwork) {
   ipcMain.on(START_AUGUR_NODE, this.onStartNetwork.bind(this))
   ipcMain.on(RESET_DATABASE, this.onResetDatabase.bind(this))
   ipcMain.on(STOP_AUGUR_NODE, this.shutDownServer.bind(this))
+  ipcMain.on(IMPORT_WARP_SYNC_FILE, this.importWarpSyncFile.bind(this))
 }
 
 // We wait until the window is provided so that if it fails we can send an error message to the renderer
@@ -257,16 +258,44 @@ AugurNodeServer.prototype.shutDownServer = function () {
     this.disconnectServerMessage()
     this.sendMsgToWindowContents(ERROR_NOTIFICATION, {
       messageType: UNEXPECTED_ERR,
-      message: err
+      message: err.message
     })
   }
 }
 
 AugurNodeServer.prototype.sendMsgToWindowContents = function(msg, payload) {
   try {
-    if(this.window) this.window.webContents.send(msg, payload)
+    if(this.window && msg) this.window.webContents.send(msg, payload)
   } catch (err) {
     log.error(err)
+  }
+}
+
+AugurNodeServer.prototype.importWarpSyncFile = function(event, filename) {
+  try {
+    console.log('importWarpSyncFile called', filename)
+    if (filename) {
+      console.log('calling controller warpSync method')
+      this.augurNodeController.warpSync(filename, (err) => {
+        console.log('augurNodeServer:', err.message)
+        this.sendMsgToWindowContents(ERROR_NOTIFICATION, {
+          messageType: UNEXPECTED_ERR,
+          message: err.message
+        })
+      }, (err, message) => {
+        this.sendMsgToWindowContents(INFO_NOTIFICATION, {
+          messageType: GEN_INFO,
+          message: message
+        })
+      })
+    }
+  } catch(err) {
+    log.error(err)
+    this.disconnectServerMessage()
+    this.sendMsgToWindowContents(ERROR_NOTIFICATION, {
+      messageType: UNEXPECTED_ERR,
+      message: err.message
+    })
   }
 }
 

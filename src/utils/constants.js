@@ -53,3 +53,4 @@ export const SSL_GEN_ERROR = 'SSL_GEN_ERROR'
 export const SAVE_FAILURE = 'SAVE_FAILURE'
 
 export const LIGHT_NODE_NAME = 'Local Light Node (experimental)'
+export const IMPORT_WARP_SYNC_FILE = 'IMPORT_WARP_SYNC_FILE'
