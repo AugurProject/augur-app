@@ -74,7 +74,8 @@ export default class ModalWarpSync extends Component {
           this.setState({
             status: {
               name: status.name,
-              progress: Math.round(status.progress * 100)
+              progress: Math.round(status.progress * 100),
+              total: status.total
             }
           })
         }
@@ -160,7 +161,7 @@ export default class ModalWarpSync extends Component {
               <div className={Styles.ModalWarpSync__errorMessage}>
                 {status.name}
                 <div className={Styles.ModalWarpSync__errorMessage}>
-                  {status.progress === 100 ? `finished downloading` : `${status.progress} %`}
+                  {status.progress === 100 ? `${status.total} downloaded` : `${status.progress} % Completed`}
                 </div>
               </div>
             )}
