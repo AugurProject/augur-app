@@ -9,8 +9,10 @@ import Styles from './modal-warp-sync.styles.less'
 
 export default class ModalWarpSync extends Component {
   static propTypes = {
+    dataDir: PropTypes.string.isRequired,
     closeModal: PropTypes.func.isRequired,
     importWarpSyncFile: PropTypes.func.isRequired,
+    openFolderBrowser: PropTypes.func.isRequired,
     downloadTorrentFile: PropTypes.func.isRequired
   }
 
@@ -20,7 +22,7 @@ export default class ModalWarpSync extends Component {
     this.state = {
       filename: '',
       directory: '',
-      torrentId: '',
+      fileUri: '',
       validations: {},
       status: {}
     }
@@ -28,6 +30,7 @@ export default class ModalWarpSync extends Component {
     this.closeModal = this.closeModal.bind(this)
     this.import = this.import.bind(this)
     this.downloadTorrentFile = this.downloadTorrentFile.bind(this)
+    this.openFolderBrowserClick = this.openFolderBrowserClick.bind(this)
   }
 
   import(e) {
@@ -45,7 +48,7 @@ export default class ModalWarpSync extends Component {
   }
 
   downloadTorrentFile() {
-    const torrentId = this.state.torrentId
+    const fileUri = this.state.fileUri
     let directory = document.getElementById('directory-id').files[0]
       ? document.getElementById('directory-id').files[0].path
       : ''
@@ -55,10 +58,10 @@ export default class ModalWarpSync extends Component {
           directory: 'directory is required'
         }
       })
-    } else if (!torrentId) {
+    } else if (!fileUri) {
       this.setState({
         validations: {
-          torrentId: 'torrentId is required'
+          fileUri: 'fileUri is required'
         }
       })
     } else {
@@ -68,8 +71,17 @@ export default class ModalWarpSync extends Component {
           progress: 0
         }
       })
-      this.props.downloadTorrentFile(torrentId, directory, (err, status) => {
-        if (err) console.log(err)
+      this.props.downloadTorrentFile(fileUri, directory, (err, status) => {
+        if (err) {
+          console.log(err)
+          this.setState({
+            status: {
+              name: `Error: ${err}`,
+              progress: 0,
+              total: 0
+            }
+          })
+        }
         if (status) {
           this.setState({
             status: {
@@ -83,96 +95,71 @@ export default class ModalWarpSync extends Component {
     }
   }
 
+  openFolderBrowserClick() {
+    this.props.openFolderBrowser(this.props.dataDir)
+  }
+
   closeModal(e) {
     this.props.closeModal()
     e.stopPropagation()
   }
 
   render() {
-    const { filename, directory, torrentId, validations, status } = this.state
+    const { dataDir } = this.props
+    const { filename, validations } = this.state
 
     return (
       <section id="warpSyncModal" className={Styles.ModalWarpSync}>
         <div className={Styles.ModalWarpSync__container}>
           <div className={Styles.ModalWarpSync__header}>
-            <div className={Styles.ModalWarpSync__title}>Warp Sync File</div>
+            <div className={Styles.ModalWarpSync__title}>Augur Warp Sync</div>
           </div>
-          <div className={Styles.ModalWarpSync__subheader}>Import warp sync file.</div>
-          <div className={Styles.ModalWarpSync__inputContainer}>
-            <input
-              className={classNames(Styles.ModalWarpSync__input, {
-                [Styles['ModalWarpSync__inputError']]: validations.filename
-              })}
-              onChange={e => {
-                this.setState({ filename: e.target.value })
-              }}
-              value={filename}
-              type="file"
-              id="file-id"
-              placeholder={'Filename'}
-            />
-            {validations.filename && <div className={Styles.ModalWarpSync__errorMessage}>{validations.filename}</div>}
-          </div>
-          <div className={Styles.ModalWarpSync__buttonContainer}>
-            <div className={Styles.ModalWarpSync__cancel} onClick={this.closeModal}>
-              Cancel
+          <div className={Styles.ModalWarpSync__subheader}>
+            <div className={Styles.ModalWarpSync__subTitle}>Access and Share</div>
+            <div className={Styles.ModalWarpSync__explanation}>
+              Warp Sync file is already processed market data. A warp sync file is updated every 100 blocks. Send this file to someone to quickly get them synced and save them hours. File is named `md5_hash.network_id.db_version.warp`
             </div>
-            <button className={Styles.ModalWarpSync__save} onClick={this.import}>
-              Import
-            </button>
-          </div>
-        </div>
-        <div className={Styles.ModalWarpSync__container}>
-          <div className={Styles.ModalWarpSync__header}>
-            <div className={Styles.ModalWarpSync__title}>Download Warp Sync File via Torrent</div>
-          </div>
-          <div className={Styles.ModalWarpSync__subheader}>Choose a download location.</div>
-          <div className={Styles.ModalWarpSync__inputContainer}>
-            <input
-              className={classNames(Styles.ModalWarpSync__input, {
-                [Styles['ModalWarpSync__inputError']]: validations.directory
-              })}
-              onChange={e => {
-                this.setState({ directory: e.target.value })
-              }}
-              value={directory}
-              type="file"
-              webkitdirectory="true"
-              mozdirectory="true"
-              directory="true"
-              id="directory-id"
-              placeholder={'Directory'}
-            />
-            {validations.directory && <div className={Styles.ModalWarpSync__errorMessage}>{validations.directory}</div>}
           </div>
           <div className={Styles.ModalWarpSync__inputContainer}>
-            <input
-              className={classNames(Styles.ModalWarpSync__input, {
-                [Styles['ModalWarpSync__inputError']]: validations.torrentId
-              })}
-              onChange={e => {
-                this.setState({ torrentId: e.target.value })
-              }}
-              value={torrentId}
-              placeholder={'TorrentId'}
-            />
-            {validations.torrentId && <div className={Styles.ModalWarpSync__errorMessage}>{validations.torrentId}</div>}
-            {status.name && (
-              <div className={Styles.ModalWarpSync__errorMessage}>
-                {status.name}
-                <div className={Styles.ModalWarpSync__errorMessage}>
-                  {status.progress === 100 ? `${status.total} downloaded` : `${status.progress} % Completed`}
-                </div>
+            <div className={Styles.ModalWarpSync__label}>Warp Sync File location: {dataDir}</div>
+            <div className={Styles.ModalWarpSync__buttonContainer}>
+              <button className={Styles.ModalWarpSync__save} style={{marginLeft: 0}} onClick={this.openFolderBrowserClick}>Open Location</button>
+            </div>
+          </div>
+          <div className={Styles.ModalWarpSync__subContainer}>
+          <div className={Styles.ModalWarpSync__subheader}>
+            <div className={Styles.ModalWarpSync__subTitle}>Import Warp Sync File</div>
+            <div className={Styles.ModalWarpSync__explanation}>
+              The import process will backup existing market data then replace with imported warp sync file.
+            </div>
+          </div>
+            <div className={Styles.ModalWarpSync__inputContainer}>
+              <input
+                className={classNames(Styles.ModalWarpSync__input, {
+                  [Styles['ModalWarpSync__inputError']]: validations.filename
+                })}
+                onChange={e => {
+                  this.setState({ filename: e.target.value })
+                }}
+                value={filename}
+                type="file"
+                id="file-id"
+                placeholder={'Filename'}
+              />
+              {validations.filename && <div className={Styles.ModalWarpSync__errorMessage}>{validations.filename}</div>}
+
+              <div className={Styles.ModalWarpSync__warningMessage}>
+                <span>Warning:</span> To expedite the process of syncing Augur's database with the Ethereum blockchain, Augur can import a sync file containing already processed market data. Please verify that you trust the source of this file before importing.
               </div>
-            )}
-          </div>
-          <div className={Styles.ModalWarpSync__buttonContainer}>
-            <div className={Styles.ModalWarpSync__cancel} onClick={this.closeModal}>
-              Cancel
             </div>
-            <button className={Styles.ModalWarpSync__save} onClick={this.downloadTorrentFile}>
-              Download
-            </button>
+            <div className={Styles.ModalWarpSync__buttonContainer}>
+              <div className={Styles.ModalWarpSync__cancel} onClick={this.closeModal}>
+                Cancel
+              </div>
+              <button className={Styles.ModalWarpSync__save} onClick={this.import}>
+                Import
+              </button>
+            </div>
           </div>
         </div>
       </section>

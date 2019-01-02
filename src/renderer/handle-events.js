@@ -11,7 +11,6 @@ import store from './store'
 export const handleEvents = () => {
 
   let stallChecker = null
-  let lastSyncBlockNumber = null
 
   ipcRenderer.on('ready', () => {
     log.info('app is ready')

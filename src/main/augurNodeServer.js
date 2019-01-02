@@ -45,11 +45,7 @@ function AugurNodeServer(selectedNetwork) {
   this.selectedNetwork = selectedNetwork
   this.augur = new Augur()
   this.appDataPath = appData('augur')
-  this.augurNodeController = new AugurNodeController(
-    this.augur,
-    Object.assign({}, this.selectedNetwork, { isWarpSync: IS_WARP_SYNC }),
-    this.appDataPath
-  )
+  this.augurNodeController = new AugurNodeController(this.augur, this.selectedNetwork, this.appDataPath, IS_WARP_SYNC)
   this.bulkSyncing = false
   this.lastSyncBlockNumber = null
   this.previousLastSyncBlockNumber = null
@@ -90,8 +86,14 @@ AugurNodeServer.prototype.startServer = function() {
     log.info(propagationDelayWaitMillis, maxRetries, blockPerChunk)
     this.augurNodeController = new AugurNodeController(
       this.augur,
-      Object.assign({}, this.selectedNetwork, { propagationDelayWaitMillis, maxRetries, blockPerChunk, isWarpSync: IS_WARP_SYNC }),
-      this.appDataPath
+      Object.assign({}, this.selectedNetwork, {
+        propagationDelayWaitMillis,
+        maxRetries,
+        blockPerChunk,
+        isWarpSync: IS_WARP_SYNC
+      }),
+      this.appDataPath,
+      IS_WARP_SYNC
     )
     this.augurNodeController.clearLoggers()
     this.augurNodeController.addLogger(log)
@@ -308,6 +310,7 @@ AugurNodeServer.prototype.importWarpSyncFile = function(event, filename) {
   try {
     console.log('importWarpSyncFile called', filename)
     if (filename) {
+      this.shutDownServer()
       console.log('calling controller warpSync method')
       this.augurNodeController.warpSync(
         filename,

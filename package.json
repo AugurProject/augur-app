@@ -49,6 +49,8 @@
     "helmet": "3.13.0",
     "immutable-delete": "^1.1.0",
     "ip-port-regex": "^2.0.0",
+    "ipfs": "^0.33.1",
+    "ipfs-api": "^26.1.2",
     "knex": "0.14.6",
     "lodash": "^4.17.10",
     "node-pre-gyp": "~0.6.38",
@@ -75,7 +77,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "electron": "2.0.8",
+    "electron": "2.0.16",
     "electron-builder": "^20.19.1",
     "electron-builder-squirrel-windows": "^20.19.0",
     "electron-publisher-s3": "^20.15.0",

@@ -9,7 +9,7 @@
 }
 
 :local(.ModalWarpSync__container) {
-  padding: 80px 24px 0;
+  padding: 112px 24px;
 }
 
 :local(.ModalWarpSync__header) {
@@ -31,7 +31,12 @@
   line-height: 1.5;
   letter-spacing: normal;
   color: @color-almostblack;
-  margin-bottom: 32px;
+  margin-bottom: 12px;
+}
+
+:local(.ModalWarpSync__explanation) {
+  font-size: 12px;
+  font-weight: 300;
 }
 
 :local(.ModalWarpSync__label) {
@@ -71,6 +76,10 @@
   background-position: 98%;
 }
 
+:local(.ModalWarpSync__subContainer) {
+  margin-top: 60px;
+}
+
 :local(.ModalWarpSync__inputContainer) {
   margin-bottom: 24px;
   position: relative;
@@ -86,8 +95,18 @@
   right: 0;
 }
 
+:local(.ModalWarpSync__warningMessage) {
+  font-size: 12px;
+  color: @color-almostblack;
+  margin-top: 24px;
+
+  > span {
+    color: @color-red;
+  }
+}
+
 :local(.ModalWarpSync__buttonContainer) {
-  margin-top: 48px;
+  margin-top: 28px;
   display: flex;
 }
 
@@ -128,4 +147,10 @@
 :local(.ModalWarpSync__title) {
   display: flex;
   flex-grow: 1;
+}
+
+:local(.ModalWarpSync__subTitle) {
+  font-size:18px;
+  font-weight: 500;
+  padding-bottom: 10px;
 }
