@@ -10,9 +10,9 @@ Download the executable of the [latest release](https://github.com/AugurProject/
 
 Platform | Executable
 -------- | ----------
-**MacOS** | ```mac-Augur-1.5.x.dmg```
-**Windows** | ```win-Augur-1.5.x.exe```
-**Linux** | ```linux-Augur-1.5.x.AppImage``` ```linux-Augur-1.5.x.deb```
+**MacOS** | ```mac-Augur-1.8.x.dmg```
+**Windows** | ```win-Augur-1.8.x.exe```
+**Linux** | ```linux-Augur-1.8.x.AppImage``` ```linux-Augur-1.8.x.deb```
 
 ### Augur debian repository
 
