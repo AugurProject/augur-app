@@ -89,8 +89,7 @@ AugurNodeServer.prototype.startServer = function() {
       Object.assign({}, this.selectedNetwork, {
         propagationDelayWaitMillis,
         maxRetries,
-        blockPerChunk,
-        isWarpSync: IS_WARP_SYNC
+        blockPerChunk
       }),
       this.appDataPath,
       IS_WARP_SYNC
