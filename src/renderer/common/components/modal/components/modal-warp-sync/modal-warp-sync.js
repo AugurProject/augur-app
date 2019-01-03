@@ -99,7 +99,7 @@ export default class ModalWarpSync extends Component {
               {validations.filename && <div className={Styles.ModalWarpSync__errorMessage}>{validations.filename}</div>}
 
               <div className={Styles.ModalWarpSync__warningMessage}>
-                <span>Warning:</span> To expedite the process of syncing Augur's database with the Ethereum blockchain, Augur can import a sync file containing already processed market data. Please verify that you trust the source of this file before importing.
+                <span>Warning:</span> To expedite the process of syncing Augur&quot;s database with the Ethereum blockchain, Augur can import a sync file containing already processed market data. Please verify that you trust the source of this file before importing.
               </div>
             </div>
             <div className={Styles.ModalWarpSync__buttonContainer}>
