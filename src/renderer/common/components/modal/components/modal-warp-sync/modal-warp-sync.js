@@ -67,7 +67,7 @@ export default class ModalWarpSync extends Component {
           <div className={Styles.ModalWarpSync__subheader}>
             <div className={Styles.ModalWarpSync__subTitle}>Access and Share</div>
             <div className={Styles.ModalWarpSync__explanation}>
-              Warp Sync file is already processed market data. A warp sync file is updated every 100 blocks. Send this file to someone to quickly get them synced and save them hours. File is named `md5_hash.network_id.db_version.warp`
+              Warp Sync file is already processed market data. A warp sync file is updated every 100 blocks. Send this file to someone to quickly get them synced and save them hours. File is named `&lt;md5_hash&gt;.&lt;network_id&gt;.&lt;db_version&gt;.warp`
             </div>
           </div>
           <div className={Styles.ModalWarpSync__inputContainer}>
