@@ -4,7 +4,6 @@ import ModalWarpSync from '../components/modal-warp-sync/modal-warp-sync'
 
 import { closeModal } from '../actions/close-modal'
 import { importWarpSyncFile, openFolderBrowser } from '../../../../app/actions/local-server-cmds'
-import { downloadTorrentFile } from '../../../../app/actions/web-torrent-client'
 
 const mapStateToProps = state => ({
   dataDir: state.configuration.dataDir
@@ -13,8 +12,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   closeModal: () => dispatch(closeModal()),
   importWarpSyncFile: filename => importWarpSyncFile(filename),
-  // saving this since it works
-  downloadTorrentFile: (fileUri, path, cb) => downloadTorrentFile(fileUri, path, cb),
   openFolderBrowser: directory => openFolderBrowser(directory)
 })
 

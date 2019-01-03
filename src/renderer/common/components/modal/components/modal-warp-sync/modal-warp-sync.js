@@ -12,8 +12,7 @@ export default class ModalWarpSync extends Component {
     dataDir: PropTypes.string.isRequired,
     closeModal: PropTypes.func.isRequired,
     importWarpSyncFile: PropTypes.func.isRequired,
-    openFolderBrowser: PropTypes.func.isRequired,
-    downloadTorrentFile: PropTypes.func.isRequired
+    openFolderBrowser: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -29,7 +28,6 @@ export default class ModalWarpSync extends Component {
 
     this.closeModal = this.closeModal.bind(this)
     this.import = this.import.bind(this)
-    this.downloadTorrentFile = this.downloadTorrentFile.bind(this)
     this.openFolderBrowserClick = this.openFolderBrowserClick.bind(this)
   }
 
@@ -44,54 +42,6 @@ export default class ModalWarpSync extends Component {
     } else {
       this.closeModal(e)
       this.props.importWarpSyncFile(filename)
-    }
-  }
-
-  downloadTorrentFile() {
-    const fileUri = this.state.fileUri
-    let directory = document.getElementById('directory-id').files[0]
-      ? document.getElementById('directory-id').files[0].path
-      : ''
-    if (!directory) {
-      this.setState({
-        validations: {
-          directory: 'directory is required'
-        }
-      })
-    } else if (!fileUri) {
-      this.setState({
-        validations: {
-          fileUri: 'fileUri is required'
-        }
-      })
-    } else {
-      this.setState({
-        status: {
-          name: 'client connecting ...',
-          progress: 0
-        }
-      })
-      this.props.downloadTorrentFile(fileUri, directory, (err, status) => {
-        if (err) {
-          console.log(err)
-          this.setState({
-            status: {
-              name: `Error: ${err}`,
-              progress: 0,
-              total: 0
-            }
-          })
-        }
-        if (status) {
-          this.setState({
-            status: {
-              name: status.name,
-              progress: Math.round(status.progress * 100),
-              total: status.total
-            }
-          })
-        }
-      })
     }
   }
 
