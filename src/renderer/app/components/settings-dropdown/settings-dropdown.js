@@ -42,7 +42,7 @@ export class SettingsDropdown extends Component {
   	const options = [
   	  { onClick: this.toggleLedger, label: [<div key="0">{this.props.sslEnabled ? "Disable SSL for Ledger" : "Enable SSL for Ledger"}</div>] },
       { onClick: this.showModalEditUiPort, label: [<div key="0">Edit UI Port</div>] },
-      { onClick: this.showModalWarpSync, label: [<div key="0">Warp Sync</div>] },
+      { onClick: this.showModalWarpSync, label: [<div key="0">Warp Sync (beta)</div>] },
   	  { onClick: this.reset, label: [<div key="0">Reset Database</div>] },
   	];
 
