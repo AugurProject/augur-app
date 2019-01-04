@@ -1,56 +1,64 @@
-const { SAVE_FAILURE, ERROR_NOTIFICATION, REQUEST_CONFIG, SAVE_CONFIG, REQUEST_CONFIG_RESPONSE, SAVE_CONFIG_RESPONSE, LIGHT_NODE_NAME } = require('../utils/constants')
+const {
+  SAVE_FAILURE,
+  ERROR_NOTIFICATION,
+  REQUEST_CONFIG,
+  SAVE_CONFIG,
+  REQUEST_CONFIG_RESPONSE,
+  SAVE_CONFIG_RESPONSE,
+  LIGHT_NODE_NAME
+} = require('../utils/constants')
 const fs = require('fs')
 const path = require('path')
 const { ipcMain } = require('electron')
 const appData = require('app-data-folder')
 const log = require('electron-log')
-const { isEqual, merge } = require('lodash')
+const { merge } = require('lodash')
 
 const defaultConfig = {
-  'uiPort': '8080',
-  'sslPort': '8443',
-  'sslEnabled': false,
-  'networks': {
+  uiPort: '8080',
+  sslPort: '8443',
+  sslEnabled: false,
+  networks: {
     mainnet: {
-      'userCreated': false,
-      'http': 'https://eth-mainnet.alchemyapi.io/jsonrpc/7sE1TzCIRIQA3NJPD5wg7YRiVjhxuWAE',
-      'name': 'Mainnet (powered by Alchemy)',
-      'selected': true,
-      'ws': '',
-      'id': '1'
+      userCreated: false,
+      http: 'https://eth-mainnet.alchemyapi.io/jsonrpc/7sE1TzCIRIQA3NJPD5wg7YRiVjhxuWAE',
+      name: 'Mainnet (powered by Alchemy)',
+      selected: true,
+      ws: '',
+      id: '1'
     },
     localLightNode: {
-      'userCreated': false,
-      'http': 'http://127.0.0.1:8545',
-      'name': LIGHT_NODE_NAME,
-      'ws': 'ws://127.0.0.1:8546'
+      userCreated: false,
+      http: 'http://127.0.0.1:8545',
+      name: LIGHT_NODE_NAME,
+      ws: 'ws://127.0.0.1:8546'
     },
     rinkeby: {
-      'userCreated': false,
-      'http': 'https://rinkeby.augur.net/ethereum-http',
-      'name': 'Rinkeby',
-      'ws': 'wss://rinkeby.augur.net/ethereum-ws',
-      'id': '4',
+      userCreated: false,
+      http: 'https://rinkeby.augur.net/ethereum-http',
+      name: 'Rinkeby',
+      ws: 'wss://rinkeby.augur.net/ethereum-ws',
+      id: '4'
     },
     ropsten: {
-      'userCreated': false,
-      'http': 'https://ropsten.augur.net/ethereum-http',
-      'name': 'Ropsten',
-      'ws': 'wss://ropsten.augur.net/ethereum-ws',
-      'id': '3'
+      userCreated: false,
+      http: 'https://ropsten.augur.net/ethereum-http',
+      name: 'Ropsten',
+      ws: 'wss://ropsten.augur.net/ethereum-ws',
+      id: '3'
     },
     kovan: {
-      'userCreated': false,
-      'http': 'https://kovan.augur.net/ethereum-http',
-      'name': 'Kovan',
-      'ws': 'wss://kovan.augur.net/ethereum-ws',
-      'id': '42'
+      userCreated: false,
+      http: 'https://kovan.augur.net/ethereum-http',
+      name: 'Kovan',
+      ws: 'wss://kovan.augur.net/ethereum-ws',
+      id: '42'
     },
     local: {
-      'userCreated': false,
-      'http': 'http://127.0.0.1:8545',
-      'name': 'Local',
-      'ws': 'ws://127.0.0.1:8546'
+      userCreated: false,
+      http: 'http://127.0.0.1:8545',
+      name: 'Local',
+      ws: 'ws://127.0.0.1:8546'
     }
   }
 }
@@ -80,21 +88,21 @@ function ConfigManager() {
   ipcMain.on(SAVE_CONFIG, this.onSaveConfig.bind(this))
 }
 
-ConfigManager.prototype.getSelectedNetwork = function () {
+ConfigManager.prototype.getSelectedNetwork = function() {
   let selected = Object.values(this.config.networks).find(n => n.selected)
   if (!selected) selected = Object.values(this.config.networks).find(n => n.name.toLowerCase().indexOf('mainnet') > -1)
   return selected
 }
 
-ConfigManager.prototype.isSslEnabled = function () {
+ConfigManager.prototype.isSslEnabled = function() {
   return this.config.sslEnabled
 }
 
-ConfigManager.prototype.onRequestConfig = function (event) {
-  event.sender.send(REQUEST_CONFIG_RESPONSE, this.config)
+ConfigManager.prototype.onRequestConfig = function(event) {
+  event.sender.send(REQUEST_CONFIG_RESPONSE, Object.assign(this.config, { dataDir: this.appDataPath }))
 }
 
-ConfigManager.prototype.onSaveConfig = function (event, config) {
+ConfigManager.prototype.onSaveConfig = function(event, config) {
   try {
     this.config = config
     fs.writeFileSync(this.configPath, JSON.stringify(this.config, null, 4))
@@ -107,6 +115,5 @@ ConfigManager.prototype.onSaveConfig = function (event, config) {
     })
   }
 }
-
 
 module.exports = ConfigManager

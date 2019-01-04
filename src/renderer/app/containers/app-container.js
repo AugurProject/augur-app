@@ -4,7 +4,7 @@ import { updateConfig } from "../actions/configuration"
 import { addInfoNotification } from "../actions/notifications"
 import { updateServerAttrib } from "../actions/serverStatus"
 import { updateModal } from "../../common/components/modal/actions/update-modal";
-import { MODAL_EDIT_UI_PORT } from "../../common/components/modal/constants/modal-types";
+import { MODAL_EDIT_UI_PORT, MODAL_WARP_SYNC } from "../../common/components/modal/constants/modal-types";
 
 const mapStateToProps = state => {
 
@@ -24,6 +24,7 @@ const mapDispatchToProps = dispatch => ({
   addInfoNotification: message => dispatch(addInfoNotification(message)),
   updateServerAttrib: obj => dispatch(updateServerAttrib(obj)),
   updateModal: data => dispatch(updateModal({ type: MODAL_EDIT_UI_PORT, ...data })),
+  updateModalWarpSync: data => dispatch(updateModal({ type: MODAL_WARP_SYNC, ...data })),
 });
 
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);

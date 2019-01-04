@@ -1,5 +1,16 @@
-const {ipcRenderer, shell} = require('electron')
-import { STOP_UI_SERVER, STOP_GETH, START_GETH, REQUEST_CONFIG, RESET_DATABASE, START_UI_SERVER, STOP_AUGUR_NODE, START_AUGUR_NODE, SAVE_CONFIG } from '../../../utils/constants'
+const { ipcRenderer, shell } = require('electron')
+import {
+  IMPORT_WARP_SYNC_FILE,
+  STOP_UI_SERVER,
+  STOP_GETH,
+  START_GETH,
+  REQUEST_CONFIG,
+  RESET_DATABASE,
+  START_UI_SERVER,
+  STOP_AUGUR_NODE,
+  START_AUGUR_NODE,
+  SAVE_CONFIG
+} from '../../../utils/constants'
 import { updateServerAttrib } from './serverStatus'
 import store from '../../store'
 
@@ -7,7 +18,7 @@ export const requestServerConfigurations = () => {
   ipcRenderer.send(REQUEST_CONFIG)
 }
 
-export const resetDatabase = (data) => {
+export const resetDatabase = data => {
   ipcRenderer.send(RESET_DATABASE, data)
 }
 
@@ -44,16 +55,37 @@ export const stopGethNode = () => {
   }, 1000)
 }
 
-export const saveConfiguration = (config) => {
+export const saveConfiguration = config => {
   startUiServer() // start UI server ssl setting might have changed
   ipcRenderer.send(SAVE_CONFIG, config)
 }
 
-export const openAugurUi = (networkConfig) => {
+export const openAugurUi = networkConfig => {
   const { sslEnabled, sslPort, uiPort } = store.getState().configuration
   const protocol = sslEnabled ? 'https' : 'http'
   const port = sslEnabled ? sslPort : uiPort
   const wssProtocol = 'ws://127.0.0.1:9001'
-  const queryString = `augur_node=${encodeURIComponent(wssProtocol)}&ethereum_node_http=${encodeURIComponent(networkConfig.http)}&ethereum_node_ws=${encodeURIComponent(networkConfig.ws)}`
+  const queryString = `augur_node=${encodeURIComponent(wssProtocol)}&ethereum_node_http=${encodeURIComponent(
+    networkConfig.http
+  )}&ethereum_node_ws=${encodeURIComponent(networkConfig.ws)}`
   shell.openExternal(`${protocol}://127.0.0.1:${port}/#/categories?${queryString}`)
+}
+
+export const importWarpSyncFile = filename => {
+  ipcRenderer.send(IMPORT_WARP_SYNC_FILE, filename)
+}
+
+export const openFolderBrowser = directory => {
+  const fs = require('fs')
+  let filename = null
+  fs.readdir(directory, function(err, items) {
+    for (var i = 0; i < items.length; i++) {
+      if(items[i].endsWith('warp')) filename = items[i]
+    }
+  })
+  if (filename) {
+    shell.showItemInFolder(`${directory}/${filename}`)
+  } else {
+    shell.showItemInFolder(`${directory}`)
+  }
 }

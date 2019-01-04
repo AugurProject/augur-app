@@ -39,10 +39,9 @@ export const ERROR_NOTIFICATION = 'ERROR_NOTIFICATION'
 
 export const UNEXPECTED_ERR = 'UNEXPECTED_ERR'
 export const CONNECTION_ERR = 'CONNECTION_ERR'
-export const RESTARTING_MSG = 'RESTARTING_MSG'
 export const START_FAILURE = 'START_FAILURE'
 export const RUNNING_FAILURE = 'RUNNING_FAILURE'
-export const RECONNECT_MSG = 'RECONNECT_MSG'
+
 export const GETH_REMOTE_MSG = 'GETH_REMOTE_MSG'
 export const APP_ERROR = 'APP_ERROR'
 export const DATABASE_IN_USE = 'DATABASE_IN_USE'
@@ -53,3 +52,6 @@ export const SSL_GEN_ERROR = 'SSL_GEN_ERROR'
 export const SAVE_FAILURE = 'SAVE_FAILURE'
 
 export const LIGHT_NODE_NAME = 'Local Light Node (experimental)'
+export const IMPORT_WARP_SYNC_FILE = 'IMPORT_WARP_SYNC_FILE'
+
+export const SHARE_WARP_SYNC_FILE = 'SHARE_WARP_SYNC_FILE'
