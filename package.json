@@ -74,7 +74,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "electron": "2.0.8",
+    "electron": "2.0.16",
     "electron-builder": "^20.19.1",
     "electron-builder-squirrel-windows": "^20.19.0",
     "electron-publisher-s3": "^20.15.0",
