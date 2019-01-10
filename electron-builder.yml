@@ -30,3 +30,6 @@ appId: "net.augur.augur"
 artifactName: "${os}-${productName}-${version}.${ext}"
 publish:
   provider: github
+buildDependenciesFromSource: true
+nodeGypRebuild: false
+npmRebuild: false
