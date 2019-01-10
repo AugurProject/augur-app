@@ -3,14 +3,14 @@ const log = require('electron-log')
 const { APP_ERROR, ERROR_NOTIFICATION } = require('../utils/constants')
 // LOG ALL THE THINGS!!!!
 log.transports.file.level = 'debug'
-
+const appData = require('app-data-folder')
 const checkForUpdates = require('./check-for-updates')
 const AugurUIServer = require('./augurUIServer')
 const AugurNodeController = require('./augurNodeServer')
 const GethNodeController = require('./gethNodeController')
 const ConfigManager = require('./configManager')
 const debounce = require('debounce')
-const { app, BrowserWindow, Menu } = electron
+const { app, BrowserWindow, Menu, shell } = electron
 /* global __dirname process*/
 
 const isDevelopment = process.env.NODE_ENV === 'development'
@@ -65,7 +65,22 @@ function buildMenu() {
             mainWindow.webContents.openDevTools()
           }
         },
-        { type: 'separator' }
+        { type: 'separator' },
+        {
+          label: 'Open Data Directory',
+          accelerator: 'CmdOrCtrl+Shift+D',
+          click: function() {
+            shell.showItemInFolder(appData('augur'))
+          }
+        },
+        {
+          label: 'Open Log Directory',
+          accelerator: 'CmdOrCtrl+Shift+L',
+          click: function() {
+            shell.showItemInFolder(log.transports.file.file)
+          }
+        }
+
       ]
     },
     {
