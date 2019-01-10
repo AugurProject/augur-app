@@ -307,25 +307,33 @@ AugurNodeServer.prototype.sendMsgToWindowContents = function(msg, payload) {
 
 AugurNodeServer.prototype.importWarpSyncFile = function(event, filename) {
   try {
-    console.log('importWarpSyncFile called', filename)
     if (filename) {
-      this.shutDownServer()
-      console.log('calling controller warpSync method')
-      this.augurNodeController.warpSync(
-        filename,
-        err => {
-          console.log('augurNodeServer:', err.message)
-          this.sendMsgToWindowContents(ERROR_NOTIFICATION, {
-            messageType: UNEXPECTED_ERR,
-            message: err.message
-          })
-        },
-        (err, message) => {
-          this.sendMsgToWindowContents(INFO_NOTIFICATION, {
-            messageType: GEN_INFO,
-            message: message
-          })
-        }
+      const wasRunning = this.augurNodeController.isRunning()
+      this.shutDownServer() // give time for shutdown to happen
+      setTimeout(
+        () =>
+          this.augurNodeController.warpSync(
+            filename,
+            err => {
+              this.sendMsgToWindowContents(ERROR_NOTIFICATION, {
+                messageType: UNEXPECTED_ERR,
+                message: err.message
+              })
+            },
+            (err, message) => {
+              this.sendMsgToWindowContents(INFO_NOTIFICATION, {
+                messageType: GEN_INFO,
+                message: message
+              })
+
+              if (message.indexOf('Finished') !== -1 && wasRunning && !this.augurNodeController.isRunning()) {
+                setTimeout(() => {
+                  this.startServer()
+                }, 5000)
+              }
+            }
+          ),
+        1000
       )
     }
   } catch (err) {
