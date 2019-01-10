@@ -1,6 +1,6 @@
 const {ipcRenderer} = require('electron')
 const log = require('electron-log')
-import { ON_GETH_SERVER_DISCONNECTED, ON_GETH_SERVER_CONNECTED, BULK_SYNC_FINISHED, BULK_SYNC_STARTED, ERROR_NOTIFICATION, INFO_NOTIFICATION, ON_UI_SERVER_CONNECTED, ON_UI_SERVER_DISCONNECTED, REQUEST_CONFIG_RESPONSE, LATEST_SYNCED_BLOCK, LATEST_SYNCED_GETH_BLOCK, ON_SERVER_CONNECTED, ON_SERVER_DISCONNECTED, PEER_COUNT_DATA, GETH_FINISHED_SYNCING, RUNNING_FAILURE } from '../utils/constants'
+import { ON_GETH_SERVER_DISCONNECTED, ON_GETH_SERVER_CONNECTED, BULK_SYNC_FINISHED, BULK_SYNC_STARTED, ERROR_NOTIFICATION, INFO_NOTIFICATION, ON_UI_SERVER_CONNECTED, ON_UI_SERVER_DISCONNECTED, REQUEST_CONFIG_RESPONSE, LATEST_SYNCED_BLOCK, LATEST_SYNCED_GETH_BLOCK, ON_SERVER_CONNECTED, ON_SERVER_DISCONNECTED, PEER_COUNT_DATA, GETH_FINISHED_SYNCING, RUNNING_FAILURE, BULK_ORPHANS_CHECK_STARTED, BULK_ORPHANS_CHECK_FINISHED } from '../utils/constants'
 import { initializeConfiguration } from './app/actions/configuration'
 import { updateGethBlockInfo, clearGethBlockInfo, updateAugurNodeBlockInfo, clearAugurNodeBlockInfo } from './app/actions/blockInfo'
 import { updateServerAttrib } from './app/actions/serverStatus'
@@ -89,6 +89,14 @@ export const handleEvents = () => {
 
   ipcRenderer.on(BULK_SYNC_FINISHED, () => {
     store.dispatch(updateServerAttrib({ AUGUR_BULK_SYNCING: false }))
+  })
+
+  ipcRenderer.on(BULK_ORPHANS_CHECK_STARTED, () => {
+    store.dispatch(updateServerAttrib({ AUGUR_BULK_ORPHANS_CHECK: true }))
+  })
+
+  ipcRenderer.on(BULK_ORPHANS_CHECK_FINISHED, () => {
+    store.dispatch(updateServerAttrib({ AUGUR_BULK_ORPHANS_CHECK: false }))
   })
 
   ipcRenderer.on(INFO_NOTIFICATION, (event, notification) => {

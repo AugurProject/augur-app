@@ -16,7 +16,9 @@ const {
   ON_SERVER_DISCONNECTED,
   ON_SERVER_CONNECTED,
   LATEST_SYNCED_BLOCK,
-  LIGHT_NODE_NAME
+  LIGHT_NODE_NAME,
+  BULK_ORPHANS_CHECK_STARTED,
+  BULK_ORPHANS_CHECK_FINISHED
 } = require('../utils/constants')
 const Augur = require('augur.js')
 const log = require('electron-log')
@@ -101,6 +103,8 @@ AugurNodeServer.prototype.startServer = function() {
     this.augurNodeController.controlEmitter.on(ControlMessageType.WebsocketError, this.onError.bind(this))
     this.augurNodeController.controlEmitter.on(ControlMessageType.BulkSyncStarted, this.onBulkSyncStarted.bind(this))
     this.augurNodeController.controlEmitter.on(ControlMessageType.BulkSyncFinished, this.onBulkSyncFinished.bind(this))
+    this.augurNodeController.controlEmitter.on(ControlMessageType.BulkOrphansCheckStarted, this.onBulkOrphansCheckStarted.bind(this))
+    this.augurNodeController.controlEmitter.on(ControlMessageType.BulkOrphansCheckFinished, this.onBulkOrphansCheckFinished.bind(this))
 
     if (this.statusLoop) clearInterval(this.statusLoop)
     this.statusLoop = setInterval(this.requestLatestSyncedBlock.bind(this), STATUS_LOOP_INTERVAL)
@@ -188,6 +192,21 @@ AugurNodeServer.prototype.onBulkSyncFinished = function() {
   if (this.window) this.window.webContents.send(BULK_SYNC_FINISHED)
 
   this.bulkSyncing = false
+}
+
+AugurNodeServer.prototype.onBulkOrphansCheckStarted = function() {
+  log.info('Bulk Orphans Check started.')
+  if (this.window) this.window.webContents.send(BULK_ORPHANS_CHECK_STARTED)
+
+  this.sendMsgToWindowContents(INFO_NOTIFICATION, {
+    messageType: GEN_INFO,
+    message: 'Verifying Orderbook State'
+  })
+}
+
+AugurNodeServer.prototype.onBulkOrphansCheckFinished = function() {
+  log.info('Bulk Orphans Check complete.')
+  if (this.window) this.window.webContents.send(BULK_ORPHANS_CHECK_FINISHED)
 }
 
 AugurNodeServer.prototype.onResetDatabase = function() {
