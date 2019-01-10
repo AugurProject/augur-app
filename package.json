@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
+    "postinstall": "electron-builder install-app-deps",
     "publish": "npm run compile && electron-builder  --publish always",
     "make": "npm run compile && electron-builder --publish always",
     "make-win": "npm run compile && electron-builder --win",
