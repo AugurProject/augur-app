@@ -26,6 +26,12 @@ const augurNodeController = new AugurNodeController(selectedNetwork)
 const augurUIServer = new AugurUIServer()
 const gethNodeController = new GethNodeController()
 
+function stopAllSubsystems() {
+  augurNodeController.shutDownServer()
+  augurUIServer.onStopUiServer()
+  gethNodeController.onStopGethServer()
+}
+
 const path = require('path')
 const url = require('url')
 
@@ -166,12 +172,10 @@ const createWindow = debounce(function() {
   mainWindow.on('closed', function() {
     log.info('mainWindow on closed')
     try {
+      stopAllSubsystems()
       // Dereference the window object, usually you would store windows
       // in an array if your app supports multi windows, this is the time
       // when you should delete the corresponding element.
-      augurNodeController.shutDownServer()
-      augurUIServer.onStopUiServer()
-      gethNodeController.onStopGethServer()
       mainWindow = null
     } catch (err) {
       log.error(err)
@@ -219,6 +223,8 @@ app.on('window-all-closed', function() {
     app.quit()
   }
 })
+
+app.on('will-quit', stopAllSubsystems) // in certain cases, on certain platforms, stopping all subsystems on 'will-quit' may prevent subsystems from failing to shutdown, such as a dangling gethNode process. Typically stopAllSubsystems() will be executed at least twice, once on mainWindow.'closed' and once on 'will-quit'.
 
 app.on('activate', function() {
   log.info('app on activate')
