@@ -9,7 +9,7 @@ const log = require('electron-log')
 /* global Buffer process*/
 
 const STATUS_LOOP_INTERVAL = 5000
-const MIN_PEERS = 4
+const MIN_PEERS = 2
 const PRE_SYNC_WAIT_TIME = 3000
 
 const SYNCING_POST_DATA = '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'
