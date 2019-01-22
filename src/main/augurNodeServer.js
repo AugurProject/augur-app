@@ -119,6 +119,8 @@ AugurNodeServer.prototype.startServer = function() {
       }
     }, 1000)
 
+    log.error('system db version', this.augurNodeController.systemDbVersion())
+    log.error('user highest db version', this.augurNodeController.highestUserDbVersion())
     this.augurNodeController.start(
       function(err) {
         log.info('augur-node start:', err.message)
@@ -363,6 +365,10 @@ AugurNodeServer.prototype.importWarpSyncFile = function(event, filename) {
       message: err.message
     })
   }
+}
+
+AugurNodeServer.prototype.highestUserDbVersion = function() {
+  return this.augurNodeController.highestUserDbVersion()
 }
 
 module.exports = AugurNodeServer
