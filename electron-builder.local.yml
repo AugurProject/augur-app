@@ -1,29 +1,38 @@
----
+directories:
+  # this contains icons, licence agreement, etc
+  buildResources: "./build"
 files:
-- "!certs/*"
-extraResources:
+  - "!certs/*"
+extraFiles:
   - from: "resources/${os}"
-  - to: "resources"
-  - filter:
-    - "geth*"
+    to: "resources"
+    filter:
+      - "**/*"
+extraResources:
+  - from: "node_modules/augur-ui/build"
+    to: "ui-client"
+    filter:
+      - "**/*"
 mac:
   target:
-  - default
+    - default
   icon: build/icon.png
 win:
   target:
-  - nsis
+    - nsis
   icon: build/icon.png
 linux:
   target:
-  - deb
-  - AppImage
+    - deb
+    - AppImage
   category: Network
-  icon: build/icon.png
+appId: "net.augur.augur"
 artifactName: "${os}-${productName}-${version}.${ext}"
-npmRebuild: false
 # This will publish the generated artifact to the endpoint brought by running 'npm run minio:spin-up'
 publish:
   bucket: "augur-app"
   endpoint: "http://localhost:9000"
   provider: s3
+buildDependenciesFromSource: true
+nodeGypRebuild: false
+npmRebuild: false
