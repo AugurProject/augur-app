@@ -74,8 +74,8 @@ def upload_database_version(id):
             asset_url = asset['url']
             print(asset_url)
             r = requests.delete(asset_url, headers=headers)
-    db_file_contents = open(db_file, 'r')
     try:
+        db_file_contents = open(db_file, 'r')
         headers['Content-Type'] = 'application/octet-stream, multipart/form-data'
         request = requests.post('https://uploads.github.com/repos/AugurProject/augur-app/releases/%s/assets?name=db_version.txt' % (id),
                                 data=db_file_contents,
@@ -84,6 +84,8 @@ def upload_database_version(id):
         request.raise_for_status()
         pprint(request.headers)
     except requests.exceptions.HTTPError as err:
+        print(err)
+    except IOError as err:
         print(err)
 
 
