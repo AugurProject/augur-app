@@ -1,8 +1,7 @@
 {
   "name": "augur",
   "productName": "Augur",
-  "version": "1.10.1-snapshot",
-  "dbVersion": "4",
+  "version": "1.10.0",
   "description": "Augur Desktop Application",
   "main": "./dist/main/main.js",
   "scripts": {
