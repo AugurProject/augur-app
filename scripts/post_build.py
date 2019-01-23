@@ -64,7 +64,10 @@ def upload_release_asset(id, data, name):
 
 
 def get_db_file_name():
-    return glob.glob('db-version.*.txt')
+    db_file = glob.glob('db-version.*.txt')
+    if len(db_file) == 1:
+        return db_file
+
 
 def upload_database_version(db_file, id):
     asset_url = ""
@@ -78,13 +81,14 @@ def upload_database_version(db_file, id):
     try:
         headers['Content-Type'] = 'application/octet-stream, multipart/form-data'
         request = requests.post('https://uploads.github.com/repos/AugurProject/augur-app/releases/%s/assets?name=%s' % (id, db_file),
-                  data=db_file_contents,
-                  headers=headers
-                  )
+                                data=db_file_contents,
+                                headers=headers
+                                )
         request.raise_for_status()
         pprint(request.headers)
     except requests.exceptions.HTTPError as err:
         print(err)
+
 
 current_version = get_current_version()
 result = get_github_release_info()
