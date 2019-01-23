@@ -70,7 +70,7 @@ release_id = ''
 # set up build dir paths
 build_dir = 'dist/'
 full_path = os.path.abspath(build_dir)
-file_extensions = ['dmg', 'deb', 'exe', 'AppImage', 'zip']
+file_extensions = ['dmg', 'deb', 'exe', 'AppImage', 'zip', 'txt']
 
 # change to build dir
 os.chdir(full_path)
@@ -86,9 +86,9 @@ for fname in os.listdir(full_path):
             shasums = '{} {}'.format(sha, fname)
             print(shasums)
             shafile.write(shasums)
-        if release_info:
+        if release_info and release_info['draft'] is True:
             release_id = release_info['id']
             delete_asset_if_exists(release_info, shasums_file)
-        upload_release_asset(release_id, shasums, shasums_file)
+            upload_release_asset(release_id, shasums, shasums_file)
 
 
