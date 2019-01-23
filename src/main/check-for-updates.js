@@ -35,12 +35,12 @@ const notifyNoUpdate = () => {
 const notifyUpdate = (highestDbVersion, resolve) => updateInfo => {
   log.error('update info', JSON.stringify(updateInfo.files))
   let resyncMessage = null
-  const file = updateInfo.files.filter((file) => file.url.index(dbVersionName) !== -1)
+  const file = updateInfo.files.filter(file => file.url.index(dbVersionName) !== -1)
   if (file) {
     const parts = file.split('.')
     if (parseInt(parts[1], 10) > parseInt(highestDbVersion, 10))
     {
-      resyncMessage= 'This release will need a full resync'
+      resyncMessage= 'This release will need a full resync.'
     }
   }
 
