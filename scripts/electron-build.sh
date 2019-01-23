@@ -33,6 +33,7 @@ fi
 
 echo "running post_build.py"
 echo "travis branch: $TRAVIS_BRANCH"
+echo "PR #: $TRAVIS_PULL_REQUEST"
 which python
 python scripts/post_build.py
 cat dist/*.sha256
