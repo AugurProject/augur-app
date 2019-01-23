@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import hashlib
-import glob
 import json
 import os
 import requests
@@ -97,7 +96,7 @@ release_id = ''
 # set up build dir paths
 build_dir = 'dist/'
 full_path = os.path.abspath(build_dir)
-file_extensions = ['dmg', 'deb', 'exe', 'AppImage', 'zip', 'txt']
+file_extensions = ['dmg', 'deb', 'exe', 'AppImage', 'zip']
 
 # change to build dir
 os.chdir(full_path)
