@@ -114,5 +114,4 @@ for fname in os.listdir(full_path):
             delete_asset_if_exists(release_info, shasums_file)
             upload_release_asset(release_id, shasums, shasums_file)
 
-local_db_file = get_db_file_name()
-upload_database_version(local_db_file, release_id)
+upload_database_version(release_id)
