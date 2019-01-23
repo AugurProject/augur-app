@@ -66,7 +66,7 @@ def upload_release_asset(id, data, name):
 def get_db_file_name():
     db_file = glob.glob('db-version.*.txt')
     if len(db_file) == 1:
-        return db_file
+        return str(db_file)
 
 
 def upload_database_version(db_file, id):
