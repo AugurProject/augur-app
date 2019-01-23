@@ -64,7 +64,9 @@ def upload_release_asset(id, data, name):
 
 
 def upload_database_version(id):
-    db_file = 'db_version.txt'
+    os.listdir('.')
+    os.listdir('../')
+    db_file = '../db_version.txt'
     asset_url = ""
     for asset in release_info['assets']:
         if db_file in asset['name']:
