@@ -77,7 +77,7 @@ def upload_database_version(id):
     db_file_contents = open(db_file, 'r')
     try:
         headers['Content-Type'] = 'application/octet-stream, multipart/form-data'
-        request = requests.post('https://uploads.github.com/repos/AugurProject/augur-app/releases/%s/assets?name=%s' % (id, db_file),
+        request = requests.post('https://uploads.github.com/repos/AugurProject/augur-app/releases/%s/assets?name=db_version.txt' % (id),
                                 data=db_file_contents,
                                 headers=headers
                                 )
