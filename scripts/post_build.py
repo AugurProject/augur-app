@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import hashlib
+import glob
 import json
 import os
 import requests
@@ -62,6 +63,29 @@ def upload_release_asset(id, data, name):
         print(err)
 
 
+def get_db_file_name():
+    return glob.glob('db-version.*.txt')
+
+def upload_database_version(db_file, id):
+    asset_url = ""
+    for asset in release_info['assets']:
+        if db_file in asset['name']:
+            print('found ' + db_file)
+            asset_url = asset['url']
+            print(asset_url)
+            r = requests.delete(asset_url, headers=headers)
+    db_file_contents = open(db_file, 'r')
+    try:
+        headers['Content-Type'] = 'application/octet-stream, multipart/form-data'
+        request = requests.post('https://uploads.github.com/repos/AugurProject/augur-app/releases/%s/assets?name=%s' % (id, db_file),
+                  data=db_file_contents,
+                  headers=headers
+                  )
+        request.raise_for_status()
+        pprint(request.headers)
+    except requests.exceptions.HTTPError as err:
+        print(err)
+
 current_version = get_current_version()
 result = get_github_release_info()
 release_info = get_version_release_info(result, current_version)
@@ -91,4 +115,5 @@ for fname in os.listdir(full_path):
             delete_asset_if_exists(release_info, shasums_file)
             upload_release_asset(release_id, shasums, shasums_file)
 
-
+local_db_file = get_db_file_name()
+upload_database_version(local_db_file, release_id)
