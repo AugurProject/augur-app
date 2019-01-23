@@ -63,13 +63,8 @@ def upload_release_asset(id, data, name):
         print(err)
 
 
-def get_db_file_name():
-    db_file = glob.glob('db-version.*.txt')
-    if len(db_file) == 1:
-        return str(db_file)
-
-
-def upload_database_version(db_file, id):
+def upload_database_version(id):
+    db_file = 'db_version.txt'
     asset_url = ""
     for asset in release_info['assets']:
         if db_file in asset['name']:
