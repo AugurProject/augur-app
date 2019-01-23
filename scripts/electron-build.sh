@@ -34,6 +34,10 @@ fi
 echo "running post_build.py"
 echo "travis branch: $TRAVIS_BRANCH"
 echo "PR #: $TRAVIS_PULL_REQUEST"
-which python
-python scripts/post_build.py
-cat dist/*.sha256
+if ! [ $TRAVIS_PULL_REQUEST ]; then
+    which python
+    python scripts/post_build.py
+    cat dist/*.sha256
+else
+    echo "not running post_build.py on a PR"
+fi
