@@ -36,10 +36,7 @@ const notifyNoUpdate = () => {
 
 const notifyUpdate = (highestDbVersion, resolve) => updateInfo => {
   let resyncMessage = ''
-  log.error('user db version', highestDbVersion)
-  log.error('updateInfo.releaseName', updateInfo.releaseName)
   getGithubReleaseFiles(updateInfo.releaseName).then(dbVersionfileContents => {
-    log.error('dbVersionfile', dbVersionfileContents)
     if (parseInt(dbVersionfileContents, 10) > parseInt(highestDbVersion, 10)) {
       resyncMessage = 'This release will need a full resync.'
     }
@@ -76,7 +73,6 @@ autoUpdater.logger = log
 autoUpdater.autoDownload = false
 
 module.exports = (notifyUpdateNotAvailable = false, highestDbVersion = 0) => {
-  log.error('user db version', highestDbVersion)
   if (isDev) return Promise.resolve()
 
   if (process.platform == 'linux' && !process.env.APPIMAGE) return Promise.resolve()
@@ -97,13 +93,10 @@ module.exports = (notifyUpdateNotAvailable = false, highestDbVersion = 0) => {
 }
 
 function getGithubReleaseFiles(release) {
-  log.error('getGithubReleaseFiles')
   const url = `${githubDownloadUrl}/${release}/${dbVersionFilename}`
-  log.error('url', url)
   return fetch(url)
     .then(res => res.text())
     .then(text => {
-      log.error('response', text)
       if (text) return text
       return 0
     })
