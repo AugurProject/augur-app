@@ -365,4 +365,8 @@ AugurNodeServer.prototype.importWarpSyncFile = function(event, filename) {
   }
 }
 
+AugurNodeServer.prototype.highestUserDbVersion = function() {
+  return this.augurNodeController.highestUserDbVersion()
+}
+
 module.exports = AugurNodeServer

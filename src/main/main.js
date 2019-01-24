@@ -21,8 +21,8 @@ let mainWindow = null
 
 const configManager = new ConfigManager()
 const selectedNetwork = configManager.getSelectedNetwork()
-
 const augurNodeController = new AugurNodeController(selectedNetwork)
+const userDbVersion = augurNodeController.highestUserDbVersion()
 const augurUIServer = new AugurUIServer()
 const gethNodeController = new GethNodeController()
 
@@ -49,7 +49,7 @@ function buildMenu() {
           }
         },
         { type: 'separator' },
-        { label: 'Check For Updates', click: () => checkForUpdates(true) },
+        { label: 'Check For Updates', click: () => checkForUpdates(true, userDbVersion) },
         { type: 'separator' },
         {
           label: 'Quit',
@@ -210,7 +210,7 @@ app.on('ready', () => {
       if (mainWindow) mainWindow.webContents.send('ready')
     }, 1000)
     createWindow()
-    checkForUpdates()
+    checkForUpdates(false, userDbVersion)
   }
 })
 

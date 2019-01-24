@@ -141,7 +141,14 @@ Also, in augur-app, there is a menu option to open folder browser for log direct
         ...
 ```
 
-
+## To test auto-update feature locally
+1. Run `npm run minio:spin-up` in a separate terminal window.
+2. Update version in package.json to a proper x.x.x version (e.g. 1.10.0)
+3. Run `npm run make:local && npm run publish:local`
+4. Open `http://localhost:9000/minio/augur-app/` to confirm artifacts are shown in the repository. (AWS_ACCESS_KEY_ID=FXX4WBKC65J15KP993DP AWS_SECRET_ACCESS_KEY=xk2VJezDOsR5xlhM9f4osqyTPnLujE0WbHv0h4WY)
+5. Decrement version stated in package.json (e.g. 1.9.0)
+6. Run `npm run make:local && npm run publish:local`
+7. Open the application artifact that now lives in the `dist` folder.
 
 ## Questions, Bugs and Issues
 
