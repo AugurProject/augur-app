@@ -128,6 +128,7 @@ If you are looking for more information from augur-node and augur-app, checkout 
 
 **Linux** : ``` ~/.config/augur/log.log```
 
+Also, in augur-app, there is a menu option to open folder browser for log directory and data directory.
 
 ## Running UI on different port (change from 8080)
 
