@@ -62,6 +62,32 @@ def upload_release_asset(id, data, name):
         print(err)
 
 
+def upload_database_version(id):
+    os.listdir('.')
+    os.listdir('../')
+    db_file = '../db_version.txt'
+    asset_url = ""
+    for asset in release_info['assets']:
+        if db_file in asset['name']:
+            print('found ' + db_file)
+            asset_url = asset['url']
+            print(asset_url)
+            r = requests.delete(asset_url, headers=headers)
+    try:
+        db_file_contents = open(db_file, 'r')
+        headers['Content-Type'] = 'application/octet-stream, multipart/form-data'
+        request = requests.post('https://uploads.github.com/repos/AugurProject/augur-app/releases/%s/assets?name=db_version.txt' % (id),
+                                data=db_file_contents,
+                                headers=headers
+                                )
+        request.raise_for_status()
+        pprint(request.headers)
+    except requests.exceptions.HTTPError as err:
+        print(err)
+    except IOError as err:
+        print(err)
+
+
 current_version = get_current_version()
 result = get_github_release_info()
 release_info = get_version_release_info(result, current_version)
@@ -86,9 +112,9 @@ for fname in os.listdir(full_path):
             shasums = '{} {}'.format(sha, fname)
             print(shasums)
             shafile.write(shasums)
-        if release_info:
+        if release_info and release_info['draft'] is True:
             release_id = release_info['id']
             delete_asset_if_exists(release_info, shasums_file)
-        upload_release_asset(release_id, shasums, shasums_file)
+            upload_release_asset(release_id, shasums, shasums_file)
 
-
+upload_database_version(release_id)
