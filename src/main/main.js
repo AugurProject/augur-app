@@ -210,7 +210,7 @@ app.on('ready', () => {
       if (mainWindow) mainWindow.webContents.send('ready')
     }, 1000)
     createWindow()
-    checkForUpdates()
+    checkForUpdates(false, userDbVersion)
   }
 })
 
