@@ -27,7 +27,7 @@ const appData = require('app-data-folder')
 
 const { ipcMain } = require('electron')
 const debounce = require('debounce')
-const POOL_DELAY_WAIT = 60 * 1000
+const POOL_DELAY_WAIT = 60 * 1000 // For eth nodes that are part of a cluster, eg. behind a load balancer, we introduce a delay which allows all nodes in the cluster to catch up with latest block. This dramatically reduces the frequency of false positive errors of the form "eth_call returned no data (0x)", which occur when an eth RPC call specifies a block which hasn't yet propagated to the specific eth node machine handling that RPC call.
 const DEFAULT_DELAY_WAIT = 1 * 1000
 
 const POOL_MAX_RETRIES = 5
@@ -76,8 +76,9 @@ AugurNodeServer.prototype.startServer = function() {
     var blockPerChunk = DEFAULT_BLOCKS_PER_CHUNK
     this.bulkSyncing = false
 
-    if (this.selectedNetwork.http.indexOf('infura') > -1) {
-      propagationDelayWaitMillis = POOL_DELAY_WAIT
+    if (this.selectedNetwork.http.indexOf('infura') > -1 ||
+        this.selectedNetwork.http.indexOf('alchemy') > -1) {
+      propagationDelayWaitMillis = POOL_DELAY_WAIT // see note on POOL_DELAY_WAIT declaration
       maxRetries = POOL_MAX_RETRIES
     }
 
