@@ -34,7 +34,7 @@ fi
 echo "running post_build.py"
 echo "travis branch: $TRAVIS_BRANCH"
 echo "PR #: $TRAVIS_PULL_REQUEST"
-if ! [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
+if [[ $TRAVIS_PULL_REQUEST == "false" ]]; then
     which python
     python scripts/post_build.py
     cat dist/*.sha256
