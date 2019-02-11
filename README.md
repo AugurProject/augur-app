@@ -123,7 +123,7 @@ Currently, there are two options for connecting to an Ethereum node:
 
 Within the Augur App UI, there is an option to import a **warp sync** file which contains the synced database needed for Augur to run. You can have a friend who has synced Augur export their warp file, and Augur App will sync almost immediately. 
 
-**WARNING: BE AWARE YOU ARE TRUSTING THE SOURCE WITH YOUR AUGUR STATE. THEY COULD GIVE YOU BAD DATA. YOU MUST ENTIRELY TRUST THE SOURCE OF THE WARP SYNC FILE, AND THERE ARE SIGNIFICANT RISKS WITH USING UNTRUSTED WARP SYNC FILES. **
+**WARNING: BE AWARE YOU ARE TRUSTING THE SOURCE WITH YOUR AUGUR STATE. THEY COULD GIVE YOU BAD DATA. YOU MUST ENTIRELY TRUST THE SOURCE OF THE WARP SYNC FILE, AND THERE ARE SIGNIFICANT RISKS WITH USING UNTRUSTED WARP SYNC FILES.**
 
 ### Parity Warp Sync: <a name="paritywarp"></a>
 
