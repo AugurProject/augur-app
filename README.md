@@ -1,13 +1,13 @@
 <p align="center"><img src="https://raw.githubusercontent.com/AugurProject/branding/master/name-horizontal/Augur-Mark-Inline.png" width="500"></p>
 
-<p align="center"><img src="https://img.shields.io/github/downloads/AugurProject/augur-app/total.svg">
-<img src="https://img.shields.io/github/contributors/AugurProject/augur-app.svg">
-<img src="https://img.shields.io/github/license/AugurProject/augur-app.svg">
+<p align="center"><a href="https://github.com/AugurProject/augur-app/releases/latest"><img src="https://img.shields.io/github/downloads/AugurProject/augur-app/total.svg"></a>
+<a href="https://github.com/AugurProject/augur-app/graphs/contributors"><img src="https://img.shields.io/github/contributors/AugurProject/augur-app.svg"></a>
+<a href="https://github.com/AugurProject/augur-app/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/AugurProject/augur-app.svg"></a>
 <br>
-<img src="https://img.shields.io/discord/378030344374583298.svg">
-<img src="https://img.shields.io/github/languages/top/AugurProject/augur-app.svg">
-<img src="https://img.shields.io/badge/contributions-welcome-orange.svg">
-<img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></p>
+<a href="https://invite.augur.net"><img src="https://img.shields.io/discord/378030344374583298.svg"></a>
+<a href="https://github.com/AugurProject/augur-app"><img src="https://img.shields.io/github/languages/top/AugurProject/augur-app.svg"></a>
+<a href="https://github.com/AugurProject/augur/issues"><img src="https://img.shields.io/badge/contributions-welcome-orange.svg"></a>
+<a href="https://github.com/AugurProject/augur/pulls"<img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></p></a>
 
 <p align="center">Augur App is a lightweight Electron app that bundles the <a href="https://github.com/AugurProject/augur-ui">Augur UI</a> and <a href="https://github.com/AugurProject/augur-node">Augur Node</a> together and deploys them locally to your machine. The Augur UI is a reference client used to interact with the Augur protocols core smart contracts on the Ethereum blockchain. Augur Node is a locally-run program that scans the Ethereum blockchain for event logs relevant to Augur, stores them in a database, and serves the respective data to the Augur UI.</p>
 
