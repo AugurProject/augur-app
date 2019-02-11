@@ -28,7 +28,7 @@
 
 
 ## Table of Contents
-<img src="https://www.augur.net/dist/images/screen--market-cycle-step-3.jpg" width="625" align="right">
+<img src="https://www.augur.net/dist/images/screen--market-cycle-step-3.jpg" width="650" align="right">
 
 1. [Running Augur](#runningaugur)
 	1. [Build - From Source](#buildsource)
