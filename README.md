@@ -29,7 +29,7 @@
 
 ## Table of Contents
 
-<img src="https://i.imgur.com/AglmGQ5.png" width="600" align="right">
+<img src="https://www.augur.net/dist/images/screen--market-cycle-step-3.jpg" width="600" align="right">
 
 1. [Running Augur](#runningaugur)
 	1. [Running Executable](#install) 
