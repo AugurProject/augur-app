@@ -1,31 +1,23 @@
-<p align="center"><img src="https://raw.githubusercontent.com/AugurProject/branding/master/name-horizontal/Augur-Mark-Inline.png" width="500"></p>
+<img src="https://raw.githubusercontent.com/AugurProject/branding/master/name-horizontal/Augur-Mark-Inline.png" width="500">
 
-<p align="center"><img src="https://img.shields.io/github/downloads/AugurProject/augur-app/total.svg">
+<img src="https://img.shields.io/github/downloads/AugurProject/augur-app/total.svg">
 <img src="https://img.shields.io/github/contributors/AugurProject/augur-app.svg">
 <img src="https://img.shields.io/github/license/AugurProject/augur-app.svg">
 <br>
 <img src="https://img.shields.io/discord/378030344374583298.svg">
 <img src="https://img.shields.io/github/languages/top/AugurProject/augur-app.svg">
 <img src="https://img.shields.io/badge/contributions-welcome-orange.svg">
-<img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></p>
+<img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg">
 
 <p align="center">Augur App is a lightweight Electron app that bundles the [Augur UI](https://github.com/AugurProject/augur-ui) and [Augur Node](https://github.com/AugurProject/augur-node) together and deploys them locally to your machine. The Augur UI is a reference client used to interact with the Augur protocols core smart contracts on the Ethereum blockchain. Augur Node is a locally-run program that scans the Ethereum blockchain for event logs relevant to Augur, stores them in a database, and serves the respective data to the Augur UI.</p>
 
-<p align="center">## Installing Augur <a name="install" ></a></p>
+## Installing Augur <a name="install" ></a>
 
-<p align="center">Download the executable of the [latest release](https://github.com/AugurProject/augur-app/releases) for your respective operating system:</p>
+Download the executable of the [latest release](https://github.com/AugurProject/augur-app/releases) for your respective operating system:
 
-<p align="center"><img src="https://img.shields.io/github/release/AugurProject/augur-app.svg"></p>
+<img src="https://img.shields.io/github/release/AugurProject/augur-app.svg">
 
-<p align="center"><a href="https://github.com/AugurProject/augur-app/releases/latest"> <img width="200" src="https://nasacso.s3-us-west-2.amazonaws.com/wp-content/uploads/2017/02/14161110/mac-win-linux.png"> </a></p>
-
-
-<p align="center">**MacOS** : ```mac-Augur-1.1x.x.dmg```</p>
-
-<p align="center">**Windows** : ```win-Augur-1.1x.x.exe```</p>
-
-<p align="center">**Linux** : ```linux-Augur-1.1x.x(.AppImage) || (.deb)```</p>
-
+<a href="https://github.com/AugurProject/augur-app/releases/latest"> <img width="200" src="https://nasacso.s3-us-west-2.amazonaws.com/wp-content/uploads/2017/02/14161110/mac-win-linux.png"> </a>
 
 ## Table of Contents
 
