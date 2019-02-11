@@ -9,6 +9,8 @@
 <a href="https://github.com/AugurProject/augur/issues"><img src="https://img.shields.io/badge/contributions-welcome-orange.svg"></a>
 <a href="https://github.com/AugurProject/augur/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a></p>
 
+# <p align="center">Augur App<a name="title" ></a></p>
+
 <p align="center">Augur App is a lightweight Electron app that bundles the <a href="https://github.com/AugurProject/augur-ui">Augur UI</a> and <a href="https://github.com/AugurProject/augur-node">Augur Node</a> together and deploys them locally to your machine. The Augur UI is a reference client used to interact with the Augur protocols core smart contracts on the Ethereum blockchain. Augur Node is a locally-run program that scans the Ethereum blockchain for event logs relevant to Augur, stores them in a database, and serves the respective data to the Augur UI.</p>
 
 # <p align="center">Installing Augur App<a name="install" ></a></p>
