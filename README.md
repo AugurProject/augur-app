@@ -39,7 +39,6 @@
     2. [Augur Warp Sync](#augurwarp)
     3. [Parity Warp Sync](#paritywarp)
 3. [Ledger Hardware Wallet](#ledger)
-	1. [Key Derivation Path](#path)
 	2. [Local SSL Cert](#ssl)
 	3. [Firefox Not Supported](#firefox)
 4. [Debugging](#debug)
@@ -137,10 +136,6 @@ Augur recommends running your parity nodes with either
 If neither of these options are specified, the node could still be functional. See [this parity documentation](https://wiki.parity.io/FAQ#what-does-paritys-command-line-output-mean) for help determining if your Parity node is ready to answer historic requests. [Parity Issue #7411](https://github.com/paritytech/parity-ethereum/issues/7411)
 
 ## Ledger Hardware Wallet <a name="ledger"></a>
-
-### Key Derivation Path: <a name="path"></a>
-
-Augur derives Ledger account addresses using the [BIP0044 standard](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki), or the `m/44'/60'/0'/0` key derivation path. Commonly used client-side wallets such as MyCrypto and MyEtherWallet, and the Ledger ETH App, use the "non-standard" key derivation path `m/44'/60'/0'`. To access the address Augur derives for you on MyCrypto, MyEtherWallet, and the Ledger ETH App, you must change your key derivation path to `m/44'/60'/0'/0` (BIP0044). [Reference](https://github.com/ethereum/EIPs/issues/84#issuecomment-292324521). 
 
 ### Local SSL Cert: <a name="ssl"></a>
 
