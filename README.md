@@ -27,7 +27,7 @@
 <p align="center"><b>Linux</b> : <code>linux-Augur-1.8.x.AppImage</code> || <code>```linux-Augur-1.8.x.deb</code></p>
 
 
-## Table of Contents
+## Contents
 <img src="https://www.augur.net/dist/images/screen--market-cycle-step-3.jpg" width="600" align="right">
 
 1. [Running Augur](#runningaugur)
