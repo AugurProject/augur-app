@@ -29,6 +29,8 @@
 
 ## Table of Contents
 
+<br><br><br>
+
 <img src="https://www.augur.net/dist/images/screen--market-cycle-step-3.jpg" width="600" align="right">
 
 1. [Running Augur](#runningaugur)
