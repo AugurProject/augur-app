@@ -24,7 +24,7 @@
 
 <p align="center"><b>Windows</b> : <code>win-Augur-1.8.x.exe</code></p>
 
-<p align="center"><b>Linux</b> : <code>linux-Augur-1.8.x.AppImage</code> || <code>```linux-Augur-1.8.x.deb</code></p>
+<p align="center"><b>Linux</b> : <code>linux-Augur-1.8.x.AppImage</code> || <code>linux-Augur-1.8.x.deb</code></p>
 
 
 ## Contents
