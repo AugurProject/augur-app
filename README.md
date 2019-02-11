@@ -28,10 +28,9 @@
 
 
 ## Table of Contents
-<img src="https://www.augur.net/dist/images/screen--market-cycle-step-3.jpg" width="600" align="right">
+<img src="https://www.augur.net/dist/images/screen--market-cycle-step-3.jpg" width="625" align="right">
 
 1. [Running Augur](#runningaugur)
-	1. [Running Executable](#install) 
 	1. [Build - From Source](#buildsource)
 	2. [Build - Binary](#buildbinary)
 	3. [Debian Repository](#debain)
@@ -47,7 +46,6 @@
 	1. [Logging](#logging)
 	2. [Clear Config File](#config)
 	3. [Change UI Port](#uiport)
-	4. [Test Auto Update](#autoupdate)
 
 
 ## Running Augur <a name="runningaugur"></a>
