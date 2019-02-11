@@ -28,9 +28,6 @@
 
 
 ## Table of Contents
-
-<br><br><br>
-
 <img src="https://www.augur.net/dist/images/screen--market-cycle-step-3.jpg" width="600" align="right">
 
 1. [Running Augur](#runningaugur)
@@ -51,8 +48,6 @@
 	2. [Clear Config File](#config)
 	3. [Change UI Port](#uiport)
 	4. [Test Auto Update](#autoupdate)
-5. [FAQ & Disclaimer](#faq)
-7. [Questions, Bugs and Issues](#questions)
 
 
 ## Running Augur <a name="runningaugur"></a>
