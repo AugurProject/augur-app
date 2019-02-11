@@ -29,7 +29,7 @@
 
 ## Table of Contents
 
-<img src="https://i.imgur.com/AglmGQ5.png" width="730" align="right">
+<img src="https://i.imgur.com/AglmGQ5.png" width="500" align="right">
 
 1. [Running Augur](#runningaugur)
 	1. [Running Executable](#install) 
