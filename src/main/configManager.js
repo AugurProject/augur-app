@@ -35,9 +35,9 @@ const defaultConfig = {
     },
     rinkeby: {
       userCreated: false,
-      http: 'https://rinkeby.augur.net/ethereum-http',
+      http: 'https://eth-rinkeby.alchemyapi.io/jsonrpc/xWkVwAbM7Qr-p8j-Zu_PPwldZJKmaKjx',
       name: 'Rinkeby',
-      ws: 'wss://rinkeby.augur.net/ethereum-ws',
+      ws: '',
       id: '4'
     },
     ropsten: {
