@@ -36,7 +36,7 @@ const defaultConfig = {
     rinkeby: {
       userCreated: false,
       http: 'https://eth-rinkeby.alchemyapi.io/jsonrpc/xWkVwAbM7Qr-p8j-Zu_PPwldZJKmaKjx',
-      name: 'Rinkeby',
+      name: 'Rinkeby (powered by Alchemy)',
       ws: '',
       id: '4'
     },

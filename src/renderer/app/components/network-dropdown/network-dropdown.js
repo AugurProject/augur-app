@@ -178,7 +178,7 @@ export class NetworkDropdown extends Component {
 		for (let i = 0; i < end.length; i++) {
 	  		const key = end[i]
 	  		const isSelected = (key === selectedKey)
-	  		options.unshift(
+	  		options.push(
 	  			<NetworkDropdownItems
 					key={key}
 					selectNetwork={() => {
