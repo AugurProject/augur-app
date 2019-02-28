@@ -23,7 +23,7 @@ jobs:
     steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: $(node_version)
+          versionSpec: 10.15
       - script: echo Hello, world!
         displayName: 'Run a one-line script'
 
