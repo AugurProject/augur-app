@@ -13,16 +13,16 @@ jobs:
     strategy:
       matrix:
         mac:
-          vmimage: macOS-10.13
+          imageName: 'macOS-10.13'
           build_command: make-mac
         win:
-          vmimage: windows-2019
+          imageName: 'windows-2019'
           build_command: make-win
         linux:
-          vmimage: Ubuntu-16.04
+          imageName: 'Ubuntu-16.04'
           build_command: make-linux
     pool:
-      vmImage: $(vmimage)
+      vmImage: $(imageName)
     steps:
       - task: NodeTool@0
         inputs:
