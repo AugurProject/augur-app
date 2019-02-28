@@ -3,35 +3,52 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger:
-- master
-- azure-pipelines
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: echo hello from Linux
+- job: macOS
+  pool:
+    vmImage: 'macOS-10.13'
+  steps:
+  - script: echo hello from macOS
+- job: Windows
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+  - script: echo hello from Windows
 
-strategy:
-  matrix:
-    mac:
-      imageName: 'macOS-10.13'
-      build_command: make-mac
-    win:
-      imageName: 'windows-2019'
-      build_command: make-win
-    linux:
-      imageName: 'Ubuntu-16.04'
-      build_command: make-linux
-pool:
-  vmImage: $(imageName)
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: 10.15
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- bash: |
-    set -euo pipefail
-    echo $(vmimage)
-    env
-    npm install
-    NODE_ENV=production npm run $(build_command)
-    cat dist/*.sha256
-  displayName: 'build augur-app'
+#trigger:
+#- master
+#- azure-pipelines
+#
+#strategy:
+#  matrix:
+#    mac:
+#      imageName: 'macOS-10.13'
+#      build_command: make-mac
+#    win:
+#      imageName: 'windows-2019'
+#      build_command: make-win
+#    linux:
+#      imageName: 'Ubuntu-16.04'
+#      build_command: make-linux
+#pool:
+#  vmImage: $(imageName)
+#steps:
+#- task: NodeTool@0
+#  inputs:
+#    versionSpec: 10.15
+#- script: echo Hello, world!
+#  displayName: 'Run a one-line script'
+#
+#- bash: |
+#    set -euo pipefail
+#    echo $(imageName)
+#    env
+#    npm install
+#    NODE_ENV=production npm run $(build_command)
+#    cat dist/*.sha256
+#  displayName: 'build augur-app'
