@@ -5,15 +5,29 @@
 
 trigger:
 - master
+- azure-pipelines
 
-pool:
-  vmImage: 'Ubuntu-16.04'
+jobs:
+  - job: build_augur_app
+    displayName: 'Build Augur App'
+    strategy:
+      matrix:
+        mac:
+          vmimage: macOS-10.13
+        win:
+          vmimage: windows-2019
+        linux:
+          vmimage: Ubuntu-16.04
+    pool:
+      vmImage: $(vmimage)
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: $(node_version)
+      - script: echo Hello, world!
+        displayName: 'Run a one-line script'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+      - script: |
+          echo Add other tasks to build, test, and deploy your project.
+          echo See https://aka.ms/yaml
+        displayName: 'Run a multi-line script'
