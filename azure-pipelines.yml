@@ -7,34 +7,31 @@ trigger:
 - master
 - azure-pipelines
 
-jobs:
-  - job: build_augur_app
-    displayName: 'Build Augur App'
-    strategy:
-      matrix:
-        mac:
-          imageName: 'macOS-10.13'
-          build_command: make-mac
-        win:
-          imageName: 'windows-2019'
-          build_command: make-win
-        linux:
-          imageName: 'Ubuntu-16.04'
-          build_command: make-linux
-    pool:
-      vmImage: $(imageName)
-    steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: 10.15
-      - script: echo Hello, world!
-        displayName: 'Run a one-line script'
+strategy:
+  matrix:
+    mac:
+      imageName: 'macOS-10.13'
+      build_command: make-mac
+    win:
+      imageName: 'windows-2019'
+      build_command: make-win
+    linux:
+      imageName: 'Ubuntu-16.04'
+      build_command: make-linux
+pool:
+  vmImage: $(imageName)
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: 10.15
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
 
-      - bash: |
-          set -euo pipefail
-          echo $(vmimage)
-          env
-          npm install
-          NODE_ENV=production npm run $(build_command)
-          cat dist/*.sha256
-        displayName: 'build augur-app'
+- bash: |
+    set -euo pipefail
+    echo $(vmimage)
+    env
+    npm install
+    NODE_ENV=production npm run $(build_command)
+    cat dist/*.sha256
+  displayName: 'build augur-app'
