@@ -14,10 +14,13 @@ jobs:
       matrix:
         mac:
           vmimage: macOS-10.13
+          build_command: make-mac
         win:
           vmimage: windows-2019
+          build_command: make-win
         linux:
           vmimage: Ubuntu-16.04
+          build_command: make-linux
     pool:
       vmImage: $(vmimage)
     steps:
@@ -27,7 +30,8 @@ jobs:
       - script: echo Hello, world!
         displayName: 'Run a one-line script'
 
-      - script: |
-          echo Add other tasks to build, test, and deploy your project.
-          echo See https://aka.ms/yaml
-        displayName: 'Run a multi-line script'
+      - bash: |
+          set -euo pipefail
+          NODE_ENV=production npm run $(build_command)
+          cat dist/*.sha256
+        displayName: 'build augur-app'
