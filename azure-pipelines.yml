@@ -32,6 +32,8 @@ jobs:
 
       - bash: |
           set -euo pipefail
+          echo $(vmimage)
+          env
           npm install
           NODE_ENV=production npm run $(build_command)
           cat dist/*.sha256
