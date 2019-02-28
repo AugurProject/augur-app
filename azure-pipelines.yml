@@ -32,6 +32,7 @@ jobs:
 
       - bash: |
           set -euo pipefail
+          npm install
           NODE_ENV=production npm run $(build_command)
           cat dist/*.sha256
         displayName: 'build augur-app'
