@@ -13,7 +13,6 @@ strategy:
       imageName: 'vs2017-win2016'
 
 pool:
-  name: $(imageName)
   vmImage: $(imageName)
 
 steps:
