@@ -3,20 +3,40 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-strategy:
-  matrix:
-    linux:
-      imageName: 'ubuntu-16.04'
-    mac:
-      imageName: 'macos-10.13'
-    windows:
-      imageName: 'vs2017-win2016'
+# according to this, below should work
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started-multiplatform?view=azure-devops
+#strategy:
+#  matrix:
+#    linux:
+#      imageName: 'ubuntu-16.04'
+#    mac:
+#      imageName: 'macos-10.13'
+#    windows:
+#      imageName: 'vs2017-win2016'
+#
+#pool:
+#  vmImage: $(imageName)
+#
+#steps:
+#- script: echo Hello, $(imageName)
 
-pool:
-  vmImage: $(imageName)
-
-steps:
-- script: echo Hello, $(imageName)
+# describe each job seperately
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: scripts/azure-electron-build.sh
+- job: macOS
+  pool:
+    vmImage: 'macOS-10.13'
+  steps:
+  - script: scripts/azure-electron-build.sh
+- job: Windows
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+  - script: scripts/azure-electron-build.sh
 
 #trigger:
 #- master
