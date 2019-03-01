@@ -26,17 +26,20 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
-  - script: scripts/azure-electron-build.sh
+  - bash: |
+      ./scripts/azure-electron-build.sh
 - job: macOS
   pool:
     vmImage: 'macOS-10.13'
   steps:
-  - script: scripts/azure-electron-build.sh
+  - bash: |
+      ./scripts/azure-electron-build.sh
 - job: Windows
   pool:
     vmImage: 'windows-2019'
   steps:
-  - script: scripts/azure-electron-build.sh
+  - bash: |
+      ./scripts/azure-electron-build.sh
 
 #trigger:
 #- master
