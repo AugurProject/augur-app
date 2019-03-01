@@ -12,8 +12,9 @@ strategy:
     windows:
       imageName: 'vs2017-win2016'
 
-  pool:
-    vmImage: $(imageName)
+pool:
+  name: $(imageName)
+  vmImage: $(imageName)
 
 steps:
 - script: echo Hello, $(imageName)
