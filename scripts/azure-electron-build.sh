@@ -14,11 +14,11 @@ pip3 install requests
 
 python -c 'import requests'
 
-if [[ $OS == 'Windows_NT' ]]; then
+if [[ $AGENT_OS == 'Windows_NT' ]]; then
     echo 'Windows'
-elif [[ $OS == 'Darwin' ]]; then
+elif [[ $AGENT_OS == 'Darwin' ]]; then
     echo 'Mac'
-elif [[ $OS == 'Linux' ]]; then
+elif [[ $AGENT_OS == 'Linux' ]]; then
     echo 'Linux'
 else
     echo 'unknown OS'
