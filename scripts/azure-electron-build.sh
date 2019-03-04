@@ -16,6 +16,7 @@ case $BUILD_REASON in
     *)
         ELECTRON_PUBLISH=always
         ;;
+esac
 
 if [[ $AGENT_OS == 'Windows_NT' ]]; then
     echo 'Windows'
