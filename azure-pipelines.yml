@@ -3,6 +3,7 @@ trigger:
   branches:
     include:
     - master
+    - azure-pipelines
     - release-*
 
 # according to this, below should work
