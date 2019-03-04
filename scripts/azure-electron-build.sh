@@ -9,20 +9,31 @@ pip install requests
 
 python -c 'import requests'
 
-npm install
-npm run compile
-
-export NODE_ENV=production
+case $BUILD_REASON in
+    PullRequest)
+        ELECTRON_PUBLISH=never
+        ;;
+    *)
+        ELECTRON_PUBLISH=always
+        ;;
 
 if [[ $AGENT_OS == 'Windows_NT' ]]; then
     echo 'Windows'
-    npm run make-win
+    npm install --global --production windows-build-tools --vs2017
+    npm install sqlite3 --build-from-source --runtime=node-webkit --target_arch=x64 --target=0.31.4 --msvs_version=2017
+    npm install
+    npm run compile
+    NODE_ENV=production npx electron-builder --win --publish $ELECTRON_PUBLISH
 elif [[ $AGENT_OS == 'Darwin' ]]; then
     echo 'Mac'
-    npm run make-mac
+    npm install
+    npm run compile
+    NODE_ENV=production npx electron-builder --mac --publish $ELECTRON_PUBLISH
 elif [[ $AGENT_OS == 'Linux' ]]; then
     echo 'Linux'
-    npm run make-linux
+    npm install
+    npm run compile
+    NODE_ENV=production npx electron-builder --linux --publish $ELECTRON_PUBLISH
 else
     echo 'unknown OS'
     exit 255
