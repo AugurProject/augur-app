@@ -15,13 +15,13 @@ npm run compile
 
 if [[ $AGENT_OS == 'Windows_NT' ]]; then
     echo 'Windows'
-    npx electron-builder --win
+    npm run make-win
 elif [[ $AGENT_OS == 'Darwin' ]]; then
     echo 'Mac'
-    npx electron-builder --mac
+    npm run make-mac
 elif [[ $AGENT_OS == 'Linux' ]]; then
     echo 'Linux'
-    npx electron-builder --linux
+    npm run make-linux
 else
     echo 'unknown OS'
     exit 255

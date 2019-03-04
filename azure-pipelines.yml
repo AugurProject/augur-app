@@ -59,7 +59,7 @@ jobs:
       versionSpec: '3.x'
   - task: NodeTool@0
     inputs:
-      versionSpec: '10.15'
+      versionSpec: '10.14'
   - bash: |
       ./scripts/azure-electron-build.sh
 
