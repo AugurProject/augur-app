@@ -9,9 +9,10 @@ pip install requests
 
 python -c 'import requests'
 
-export NODE_ENV=production
 npm install
 npm run compile
+
+export NODE_ENV=production
 
 if [[ $AGENT_OS == 'Windows_NT' ]]; then
     echo 'Windows'
