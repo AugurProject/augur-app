@@ -10,18 +10,18 @@ pip install requests
 python -c 'import requests'
 
 export NODE_ENV=production
-npm install --silent
+npm install
 npm run compile
 
 if [[ $AGENT_OS == 'Windows_NT' ]]; then
     echo 'Windows'
-    electron-builder --win
+    npx electron-builder --win
 elif [[ $AGENT_OS == 'Darwin' ]]; then
     echo 'Mac'
-    electron-builder --mac
+    npx electron-builder --mac
 elif [[ $AGENT_OS == 'Linux' ]]; then
     echo 'Linux'
-    electron-builder --linux
+    npx electron-builder --linux
 else
     echo 'unknown OS'
     exit 255

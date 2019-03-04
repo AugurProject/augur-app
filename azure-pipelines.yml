@@ -29,8 +29,12 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
+  - task: NodeTool@0
+  inputs:
+    versionSpec: '10.15'
   - bash: |
       ./scripts/azure-electron-build.sh
+
 - job: macOS
   pool:
     vmImage: 'macOS-10.13'
@@ -40,12 +44,22 @@ jobs:
     inputs:
       certSecureFile: mac.p12
       certPwd: $(macP12Pass)
+  - task: NodeTool@0
+  inputs:
+    versionSpec: '10.15'
   - bash: |
       ./scripts/azure-electron-build.sh
+
 - job: Windows
   pool:
     vmImage: 'windows-2019'
   steps:
+  - task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+  - task: NodeTool@0
+  inputs:
+    versionSpec: '10.15'
   - bash: |
       ./scripts/azure-electron-build.sh
 
