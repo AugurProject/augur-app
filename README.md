@@ -19,7 +19,7 @@
 
 <p align="center"><img src="https://img.shields.io/github/release/AugurProject/augur-app.svg"></p>
 
-<p align="center"><a href="https://github.com/AugurProject/augur-app/releases/latest"> <img width="200" src="https://nasacso.s3-us-west-2.amazonaws.com/wp-content/uploads/2017/02/14161110/mac-win-linux.png"> </a></p>
+<p align="center"><a href="https://github.com/AugurProject/augur-app/releases/latest"> <img width="200" src="https://raw.githubusercontent.com/AugurProject/augur-app/9062dad2613eb55266ee4c31cb78a11ca5db626a/mac-win-linux.png"> </a></p>
 
 
 <p align="center"><b>MacOS</b> : <code>mac-Augur-1.8.x.dmg</code></p>
