@@ -20,7 +20,7 @@ esac
 
 if [[ $AGENT_OS == 'Windows_NT' ]]; then
     echo 'Windows'
-    npm install --global --production windows-build-tools --vs2017
+    #npm install --global --production windows-build-tools --vs2017
     npm install sqlite3 --build-from-source --runtime=node-webkit --target_arch=x64 --target=0.31.4 --msvs_version=2017
     npm install
     npm run compile
