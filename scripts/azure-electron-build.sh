@@ -40,12 +40,12 @@ else
     exit 255
 fi
 
-if [[ $BUILD_REASON == 'PullRequest' ]]; then
-    echo 'Pull Request'
-else
+if [[ $ELECTRON_PUBLISH == 'always' ]]; then
     python scripts/post_build.py
     cat dist/*.sha256
+else
+    echo 'Not generating sha256 files'
 fi
 
-    npm install --quiet
-    NODE_ENV=production npm run make-linux
+#    npm install --quiet
+#    NODE_ENV=production npm run make-linux
