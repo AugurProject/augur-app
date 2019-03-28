@@ -9,12 +9,12 @@ pip install requests
 
 python -c 'import requests'
 
-case $BUILD_REASON in
-    PullRequest)
-        ELECTRON_PUBLISH=never
+case $BUILD_SOURCEBRANCH in
+    *master|*release*)
+        ELECTRON_PUBLISH=always
         ;;
     *)
-        ELECTRON_PUBLISH=always
+        ELECTRON_PUBLISH=never
         ;;
 esac
 
