@@ -12,6 +12,8 @@ set -x
 
 if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
     echo "running 'npm run make-mac'"
+    npm install --quiet
+    find node_modules/augur-ui/build  | xargs touch
     NODE_ENV=production npm run make-mac
     echo "creating virtualenv"
     virtualenv augur-venv
@@ -26,6 +28,7 @@ else
     sudo apt-get update
     sudo apt-get install -y libusb-{dev,1.0-0-dev} rpm curl tzdata python-pip
     npm install --quiet
+    find node_modules/augur-ui/build  | xargs touch
     NODE_ENV=production npm run make-linux
     pyenv global 3.6.3
     pip install requests
