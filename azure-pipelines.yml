@@ -64,7 +64,7 @@ jobs:
 #    inputs:
 #      command: install --global --production windows-build-tools --vs2017
 #- script: npm install --global --production windows-build-tools --vs2015
-  - script: npm install --msvs_version=2013 node-gyp rebuild
+#- script: npm install --msvs_version=2013 node-gyp rebuild
   - bash: |
       ./scripts/azure-electron-build.sh
 
