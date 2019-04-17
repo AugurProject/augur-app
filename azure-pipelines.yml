@@ -63,8 +63,8 @@ jobs:
 #  - task: Npm@1
 #    inputs:
 #      command: install --global --production windows-build-tools --vs2017
+  - script: npm install --global --production windows-build-tools --vs2015
   - bash: |
-      npm install --global --production windows-build-tools --vs2015
       ./scripts/azure-electron-build.sh
 
 #trigger:
