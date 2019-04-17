@@ -60,10 +60,11 @@ jobs:
   - task: NodeTool@0
     inputs:
       versionSpec: '10.15'
-  - task: Npm@1
-    inputs:
-      command: install --global --production windows-build-tools --vs2017
+#  - task: Npm@1
+#    inputs:
+#      command: install --global --production windows-build-tools --vs2017
   - bash: |
+      npm install --global --production windows-build-tools --vs2017
       ./scripts/azure-electron-build.sh
 
 #trigger:
