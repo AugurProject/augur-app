@@ -22,8 +22,8 @@ if [[ $AGENT_OS == 'Windows_NT' ]]; then
     which npx
     find . -name electron-builder
     export npm_config_build_from_source=false
-    export NODE_ENV=production
     npm install
+    export NODE_ENV=production
     npm run make-win -- --publish $ELECTRON_PUBLISH
     pip install requests
     python scripts\post_build.py
