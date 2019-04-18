@@ -1,8 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-env
-
 python --version
 
 pip install requests
@@ -20,6 +18,9 @@ esac
 
 if [[ $AGENT_OS == 'Windows_NT' ]]; then
     echo 'Windows'
+    which node
+    which npx
+    find . -name electron-builder
     export npm_config_build_from_source=false
     export NODE_ENV=production
     npm install
