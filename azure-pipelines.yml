@@ -6,9 +6,6 @@ trigger:
     - azure-pipelines
     - release-*
 
-# variables
-variables:
-
 # describe each job seperately
 jobs:
 - job: Linux
