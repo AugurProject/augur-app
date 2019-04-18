@@ -23,8 +23,7 @@ if [[ $AGENT_OS == 'Windows_NT' ]]; then
     export npm_config_build_from_source=false
     export NODE_ENV=production
     npm install
-    npm compile
-    npx electron-builder --win --publish $ELECTRON_PUBLISH
+    npm run make-win -- --publish $ELECTRON_PUBLISH
     pip install requests
     python scripts\post_build.py
 elif [[ $AGENT_OS == 'Darwin' ]]; then
