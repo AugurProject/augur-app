@@ -25,8 +25,6 @@ if [[ $AGENT_OS == 'Windows_NT' ]]; then
     npm install
     export NODE_ENV=production
     npm run make-win -- --publish $ELECTRON_PUBLISH
-    pip install requests
-    python scripts\post_build.py
 elif [[ $AGENT_OS == 'Darwin' ]]; then
     echo 'Mac'
     npm install
@@ -43,7 +41,11 @@ else
 fi
 
 if [[ $ELECTRON_PUBLISH == 'always' ]]; then
-    python scripts/post_build.py
+    if [[ $AGENT_OS == 'Windows_NT' ]]; then
+        python scripts/post_build.py
+    else
+        python scripts\post_build.py
+    fi
     cat dist/*.sha256
 else
     echo 'Not generating sha256 files'
