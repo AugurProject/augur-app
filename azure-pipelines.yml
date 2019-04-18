@@ -6,23 +6,6 @@ trigger:
     - azure-pipelines
     - release-*
 
-# according to this, below should work
-# https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started-multiplatform?view=azure-devops
-#strategy:
-#  matrix:
-#    linux:
-#      imageName: 'ubuntu-16.04'
-#    mac:
-#      imageName: 'macos-10.13'
-#    windows:
-#      imageName: 'vs2017-win2016'
-#
-#pool:
-#  vmImage: $(imageName)
-#
-#steps:
-#- script: echo Hello, $(imageName)
-
 # describe each job seperately
 jobs:
 - job: Linux
@@ -32,8 +15,7 @@ jobs:
   - task: NodeTool@0
     inputs:
       versionSpec: '10.15'
-  - bash: |
-      ./scripts/azure-electron-build.sh
+  - bash: ./scripts/azure-electron-build.sh
 
 - job: macOS
   pool:
@@ -47,8 +29,7 @@ jobs:
   - task: NodeTool@0
     inputs:
       versionSpec: '10.15'
-  - bash: |
-      ./scripts/azure-electron-build.sh
+  - bash: ./scripts/azure-electron-build.sh
 
 - job: Windows
   pool:
@@ -60,52 +41,4 @@ jobs:
   - task: NodeTool@0
     inputs:
       versionSpec: '10.15'
-#  - task: Npm@1
-#    inputs:
-#      command: install --global --production windows-build-tools --vs2017
-#- script: npm install --global --production windows-build-tools
-#- script: npm install --msvs_version=2013 node-gyp rebuild
-  - bash: |
-      export npm_config_build_from_source=false
-      npm install
-      export NODE_ENV=production
-      npm run make -- --win
-      pip install requests
-      python scripts\post_build.py
-    #./scripts/azure-electron-build.sh
-
-#trigger:
-#- master
-#- azure-pipelines
-#
-#jobs:
-#  - job: build_augur_app
-#    displayName: 'Build Augur App'
-#    strategy:
-#      matrix:
-#        mac:
-#          imageName: 'macOS-10.13'
-#          build_command: make-mac
-#        win:
-#          imageName: 'windows-2019'
-#          build_command: make-win
-#        linux:
-#          imageName: 'Ubuntu-16.04'
-#          build_command: make-linux
-#    pool:
-#      vmImage: $(imageName)
-#    steps:
-#      - task: NodeTool@0
-#        inputs:
-#          versionSpec: 10.15
-#      - script: echo Hello, world!
-#        displayName: 'Run a one-line script'
-#
-#      - bash: |
-#          set -euo pipefail
-#          echo $(imageName)
-#          env
-#          npm install
-#          NODE_ENV=production npm run $(build_command)
-#          cat dist/*.sha256
-#        displayName: 'build augur-app'
+  - bash: ./scripts/azure-electron-build.sh

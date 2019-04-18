@@ -20,13 +20,13 @@ esac
 
 if [[ $AGENT_OS == 'Windows_NT' ]]; then
     echo 'Windows'
-    which node
-    node --version
-    #npm install --global --production windows-build-tools --vs2017
-    yarn add sqlite3 --build-from-source --runtime=node-webkit --target_arch=x64 --msvs_version=2017
-    yarn --verbose
-    yarn run compile
-    NODE_ENV=production npx electron-builder --win --publish $ELECTRON_PUBLISH
+    export npm_config_build_from_source=false
+    export NODE_ENV=production
+    yarn
+    yarn compile
+    yarn electron-builder --win --publish $ELECTRON_PUBLISH
+    pip install requests
+    python scripts\post_build.py
 elif [[ $AGENT_OS == 'Darwin' ]]; then
     echo 'Mac'
     npm install
