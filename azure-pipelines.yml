@@ -66,9 +66,9 @@ jobs:
 #- script: npm install --global --production windows-build-tools
 #- script: npm install --msvs_version=2013 node-gyp rebuild
   - bash: |
-      SET npm_config_build_from_source=false
+      export npm_config_build_from_source=false
       npm install
-      SET NODE_ENV=production
+      export NODE_ENV=production
       npm run make -- --win
       pip install requests
       python scripts\post_build.py
