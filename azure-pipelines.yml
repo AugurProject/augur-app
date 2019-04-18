@@ -8,9 +8,9 @@ trigger:
 
 # variables
 variables:
-  GH_TOKEN: $(GH_TOKEN)
-  WIN_CSC_KEY_PASSWORD: $(WIN_CSC_KEY_PASSWORD)
-  WIN_CSC_LINK: $(WIN_CSC_LINK)
+  GH_TOKEN: $(github_token)
+  WIN_CSC_KEY_PASSWORD: $(csc_key_password)
+  WIN_CSC_LINK: $(csc_link)
 
 # describe each job seperately
 jobs:
