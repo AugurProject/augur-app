@@ -66,7 +66,13 @@ jobs:
 #- script: npm install --global --production windows-build-tools
 #- script: npm install --msvs_version=2013 node-gyp rebuild
   - bash: |
-      ./scripts/azure-electron-build.sh
+      SET npm_config_build_from_source=false
+      npm install
+      SET NODE_ENV=production
+      npm run make -- --win
+      pip install requests
+      python scripts\post_build.py
+    #./scripts/azure-electron-build.sh
 
 #trigger:
 #- master
