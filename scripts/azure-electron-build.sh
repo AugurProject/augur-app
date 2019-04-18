@@ -42,7 +42,11 @@ fi
 
 if [[ $ELECTRON_PUBLISH == 'always' ]]; then
     if [[ $AGENT_OS == 'Windows_NT' ]]; then
-        python scripts\post_build.py
+        ls -l
+        ls -l scripts
+        cd scripts
+        python post_build.py
+        #python scripts\post_build.py
     else
         python scripts/post_build.py
     fi
