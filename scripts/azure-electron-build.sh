@@ -22,9 +22,9 @@ if [[ $AGENT_OS == 'Windows_NT' ]]; then
     echo 'Windows'
     export npm_config_build_from_source=false
     export NODE_ENV=production
-    yarn
-    yarn compile
-    yarn electron-builder --win --publish $ELECTRON_PUBLISH
+    npm install
+    npm compile
+    npx electron-builder --win --publish $ELECTRON_PUBLISH
     pip install requests
     python scripts\post_build.py
 elif [[ $AGENT_OS == 'Darwin' ]]; then
