@@ -23,8 +23,8 @@ if [[ $AGENT_OS == 'Windows_NT' ]]; then
     which node
     node --version
     #npm install --global --production windows-build-tools --vs2017
-    yarn install sqlite3 --build-from-source --runtime=node-webkit --target_arch=x64 --msvs_version=2017
-    yarn install
+    yarn add sqlite3 --build-from-source --runtime=node-webkit --target_arch=x64 --msvs_version=2017
+    yarn --verbose
     yarn run compile
     NODE_ENV=production npx electron-builder --win --publish $ELECTRON_PUBLISH
 elif [[ $AGENT_OS == 'Darwin' ]]; then
