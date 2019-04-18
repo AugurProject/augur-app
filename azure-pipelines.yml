@@ -6,6 +6,12 @@ trigger:
     - azure-pipelines
     - release-*
 
+# variables
+variables:
+  GH_TOKEN: $(GH_TOKEN)
+  WIN_CSC_KEY_PASSWORD: $(WIN_CSC_KEY_PASSWORD)
+  WIN_CSC_LINK: $(WIN_CSC_LINK)
+
 # describe each job seperately
 jobs:
 - job: Linux
