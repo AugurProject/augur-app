@@ -8,9 +8,6 @@ trigger:
 
 # variables
 variables:
-  GH_TOKEN: $(github_token)
-  WIN_CSC_KEY_PASSWORD: $(csc_key_password)
-  WIN_CSC_LINK: $(csc_link)
 
 # describe each job seperately
 jobs:
@@ -22,6 +19,8 @@ jobs:
     inputs:
       versionSpec: '10.15'
   - bash: ./scripts/azure-electron-build.sh
+    env:
+      GH_TOKEN: $(github_token)
 
 - job: macOS
   pool:
@@ -36,6 +35,8 @@ jobs:
     inputs:
       versionSpec: '10.15'
   - bash: ./scripts/azure-electron-build.sh
+    env:
+      GH_TOKEN: $(github_token)
 
 - job: Windows
   pool:
@@ -48,3 +49,7 @@ jobs:
     inputs:
       versionSpec: '10.15'
   - bash: ./scripts/azure-electron-build.sh
+    env:
+      GH_TOKEN: $(github_token)
+      WIN_CSC_KEY_PASSWORD: $(csc_key_password)
+      WIN_CSC_LINK: $(csc_link)
