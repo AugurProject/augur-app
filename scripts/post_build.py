@@ -115,7 +115,6 @@ for fname in os.listdir(full_path):
         if release_info and release_info['draft'] is True:
             release_id = release_info['id']
             delete_asset_if_exists(release_info, shasums_file)
-        if release_info['draft'] is True:
             upload_release_asset(release_id, shasums, shasums_file)
 
 upload_database_version(release_id)
