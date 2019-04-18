@@ -42,9 +42,9 @@ fi
 
 if [[ $ELECTRON_PUBLISH == 'always' ]]; then
     if [[ $AGENT_OS == 'Windows_NT' ]]; then
-        python scripts/post_build.py
-    else
         python scripts\post_build.py
+    else
+        python scripts/post_build.py
     fi
     cat dist/*.sha256
 else

@@ -12,6 +12,9 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
   - task: NodeTool@0
     inputs:
       versionSpec: '10.15'
@@ -24,6 +27,9 @@ jobs:
     vmImage: 'macOS-10.13'
   steps:
   # Install an Apple certificate required to build on a macOS agent
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
   - task: InstallAppleCertificate@2
     inputs:
       certSecureFile: mac.p12
