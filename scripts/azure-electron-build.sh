@@ -23,16 +23,19 @@ if [[ $AGENT_OS == 'Windows_NT' ]]; then
     find . -name electron-builder
     export npm_config_build_from_source=false
     npm install
+    find node_modules/augur-ui/build  | xargs touch
     export NODE_ENV=production
     npm run make-win -- --publish $ELECTRON_PUBLISH
 elif [[ $AGENT_OS == 'Darwin' ]]; then
     echo 'Mac'
     npm install
+    find node_modules/augur-ui/build  | xargs touch
     npm run compile
     NODE_ENV=production npx electron-builder --mac --publish $ELECTRON_PUBLISH
 elif [[ $AGENT_OS == 'Linux' ]]; then
     echo 'Linux'
     npm install
+    find node_modules/augur-ui/build  | xargs touch
     npm run compile
     NODE_ENV=production npx electron-builder --linux --publish $ELECTRON_PUBLISH
 else
