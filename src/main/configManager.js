@@ -49,9 +49,9 @@ const defaultConfig = {
     },
     kovan: {
       userCreated: false,
-      http: 'https://kovan.augur.net/ethereum-http',
+      http: 'https://eth-kovan.alchemyapi.io/jsonrpc/Kd37_uEmJGwU6pYq6jrXaJXXi8u9IoOM',
       name: 'Kovan',
-      ws: 'wss://kovan.augur.net/ethereum-ws',
+      ws: '',
       id: '42'
     },
     local: {
