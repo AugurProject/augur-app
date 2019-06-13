@@ -32,8 +32,8 @@ jobs:
       versionSpec: '3.x'
   - task: InstallAppleCertificate@2
     inputs:
-      certSecureFile: FF-20190612.p12
-      certPwd: $(FF-20190612_p12_pass)
+      certSecureFile: mac.p12
+      certPwd: $(macP12Pass)
   - task: NodeTool@0
     inputs:
       versionSpec: '10.15'
