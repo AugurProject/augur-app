@@ -24,7 +24,7 @@ const defaultConfig = {
       http: 'https://eth-mainnet.alchemyapi.io/jsonrpc/7sE1TzCIRIQA3NJPD5wg7YRiVjhxuWAE',
       name: 'Mainnet (powered by Alchemy)',
       selected: true,
-      ws: '',
+      ws: 'https://eth-mainnet.alchemyapi.io/jsonrpc/7sE1TzCIRIQA3NJPD5wg7YRiVjhxuWAE',
       id: '1'
     },
     localLightNode: {
@@ -37,7 +37,7 @@ const defaultConfig = {
       userCreated: false,
       http: 'https://eth-rinkeby.alchemyapi.io/jsonrpc/xWkVwAbM7Qr-p8j-Zu_PPwldZJKmaKjx',
       name: 'Rinkeby',
-      ws: '',
+      ws: 'https://eth-rinkeby.alchemyapi.io/jsonrpc/xWkVwAbM7Qr-p8j-Zu_PPwldZJKmaKjx',
       id: '4'
     },
     ropsten: {
@@ -51,7 +51,7 @@ const defaultConfig = {
       userCreated: false,
       http: 'https://eth-kovan.alchemyapi.io/jsonrpc/Kd37_uEmJGwU6pYq6jrXaJXXi8u9IoOM',
       name: 'Kovan',
-      ws: '',
+      ws: 'https://eth-kovan.alchemyapi.io/jsonrpc/Kd37_uEmJGwU6pYq6jrXaJXXi8u9IoOM',
       id: '42'
     },
     local: {
