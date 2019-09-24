@@ -36,7 +36,7 @@
   "dependencies": {
     "app-data-folder": "1.0.0",
     "augur-core": "1.1.0",
-    "augur-node": "7.11.0",
+    "augur-node": "7.11.1",
     "augur-ui": "6.9.1",
     "augur.js": "6.5.1",
     "debounce": "1.1.0",
