@@ -28,11 +28,6 @@ linux:
   category: Network
 appId: "net.augur.augur"
 artifactName: "${os}-${productName}-${version}.${ext}"
-# This will publish the generated artifact to the endpoint brought by running 'npm run minio:spin-up'
-publish:
-  bucket: "augur-app"
-  endpoint: "http://localhost:9000"
-  provider: s3
 buildDependenciesFromSource: true
 nodeGypRebuild: false
 npmRebuild: false
