@@ -20,7 +20,7 @@ jobs:
       versionSpec: '10.15'
   - bash: ./scripts/azure-electron-build.sh
     env:
-      GH_TOKEN: $(github_token)
+      GH_TOKEN: $(GITHUB_TOKEN)
 
 - job: macOS
   pool:
@@ -39,7 +39,7 @@ jobs:
       versionSpec: '10.15'
   - bash: ./scripts/azure-electron-build.sh
     env:
-      GH_TOKEN: $(github_token)
+      GH_TOKEN: $(GITHUB_TOKEN)
 
 - job: Windows
   pool:
@@ -53,6 +53,6 @@ jobs:
       versionSpec: '10.15'
   - bash: ./scripts/azure-electron-build.sh
     env:
-      GH_TOKEN: $(github_token)
+      GH_TOKEN: $(GITHUB_TOKEN)
       WIN_CSC_KEY_PASSWORD: $(csc_key_password)
       WIN_CSC_LINK: $(csc_link)

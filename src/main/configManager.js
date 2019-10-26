@@ -21,8 +21,8 @@ const defaultConfig = {
   networks: {
     mainnet: {
       userCreated: false,
-      http: 'https://eth-mainnet.alchemyapi.io/jsonrpc/7sE1TzCIRIQA3NJPD5wg7YRiVjhxuWAE',
-      name: 'Mainnet (powered by Alchemy)',
+      http: 'https://cloudflare-eth.com/',
+      name: 'Mainnet',
       selected: true,
       ws: '',
       id: '1'
