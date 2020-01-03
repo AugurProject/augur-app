@@ -19,14 +19,6 @@ const defaultConfig = {
   sslPort: '8443',
   sslEnabled: false,
   networks: {
-    mainnet: {
-      userCreated: false,
-      http: 'https://eth-mainnet.alchemyapi.io/jsonrpc/7sE1TzCIRIQA3NJPD5wg7YRiVjhxuWAE',
-      name: 'Mainnet (powered by Alchemy)',
-      selected: true,
-      ws: '',
-      id: '1'
-    },
     localLightNode: {
       userCreated: false,
       http: 'http://127.0.0.1:8545',
