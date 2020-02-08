@@ -1,7 +1,7 @@
 {
   "name": "augur",
   "productName": "Augur",
-  "version": "1.16.7",
+  "version": "1.16.8",
   "description": "Augur Desktop Application",
   "main": "./dist/main/main.js",
   "scripts": {
@@ -36,8 +36,8 @@
   "dependencies": {
     "app-data-folder": "1.0.0",
     "augur-core": "1.1.0",
-    "augur-node": "7.11.5",
-    "augur-ui": "6.9.10",
+    "augur-node": "7.11.7",
+    "augur-ui": "6.9.14",
     "augur.js": "6.7.0",
     "debounce": "1.1.0",
     "edge-core-js": "0.13.6",
