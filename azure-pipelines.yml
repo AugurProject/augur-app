@@ -24,7 +24,7 @@ jobs:
 
 - job: macOS
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'macOS-10.15'
   steps:
   # Install an Apple certificate required to build on a macOS agent
   - task: UsePythonVersion@0
