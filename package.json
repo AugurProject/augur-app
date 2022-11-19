@@ -79,7 +79,7 @@
     "electron-builder": "^20.19.1",
     "electron-builder-squirrel-windows": "^20.19.0",
     "electron-publisher-s3": "^20.15.0",
-    "electron-webpack": "^2.1.2",
+    "electron-webpack": "^2.6.1",
     "eslint": "4.19.1",
     "eslint-config-airbnb": "16.1.0",
     "eslint-config-airbnb-base": "^13.0.0",
