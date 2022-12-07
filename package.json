@@ -45,7 +45,7 @@
     "electron-log": "^2.2.16",
     "electron-progressbar": "^1.1.0",
     "electron-updater": "4.0.6",
-    "express": "4.16.2",
+    "express": "4.17.3",
     "file-loader": "^2.0.0",
     "helmet": "3.13.0",
     "immutable-delete": "^1.1.0",
