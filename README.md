@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/AugurProject/branding/master/name-horizontal/Augur-Mark-Inline.png" width="500"></p>
+<p align="center1"><img src="https://raw.githubusercontent.com/AugurProject/branding/master/name-horizontal/Augur-Mark-Inline.png" width="500"></p>
 
 # <p align="center">Augur App<a name="install" ></a></p>
 
