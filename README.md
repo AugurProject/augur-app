@@ -35,7 +35,7 @@
 1. [Running Augur](#runningaugur)
 	1. [Build - From Source](#buildsource)
 	2. [Build - Binary](#buildbinary)
-	3. [Debian Repository](#debain)
+	3. [Debian Repository](#debian)
 2. [Syncing Augur](#syncingaugur)
     1. [Ethereum Nodes](#ethnodes)
     2. [Augur Warp Sync](#augurwarp)
@@ -129,7 +129,7 @@ Within the Augur App UI, there is an option to import a **warp sync** file which
 
 ### Parity Warp Sync: <a name="paritywarp"></a>
 
-By default, Parity uses "warp sync" mode (sometimes referred to as "fast") to sync the blockchain. While this mode does sync significantly faster, it causes issues for any application that relies on historic logs. After warp sync is complete, your node might appear to be sychronized and fully up-to-date, but older blocks are missing while it backfills, which could take several days. It is also not obvious when that backfill has completed.
+By default, Parity uses "warp sync" mode (sometimes referred to as "fast") to sync the blockchain. While this mode does sync significantly faster, it causes issues for any application that relies on historic logs. After warp sync is complete, your node might appear to be synchronized and fully up-to-date, but older blocks are missing while it backfills, which could take several days. It is also not obvious when that backfill has completed.
 
 Augur recommends running your parity nodes with either
 - `--no-warp` **or**
